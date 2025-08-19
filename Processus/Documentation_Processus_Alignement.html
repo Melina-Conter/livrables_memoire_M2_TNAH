@@ -1,0 +1,1534 @@
+<html><head><style>body {
+    font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #111;
+    background-color: #fbfbfb;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-feature-settings: "kern" 1;
+    -moz-font-feature-settings: "kern" 1;
+    -o-font-feature-settings: "kern" 1;
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+    padding: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        padding: 5px;
+    }
+    body>#content {
+        padding: 0px 20px 20px 20px !important;
+    }
+}
+
+body>#content {
+    margin: 0px;
+    max-width: 900px;
+    border: 1px solid #e1e4e8;
+    padding: 10px 40px;
+    padding-bottom: 20px;
+    border-radius: 2px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+summary {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+hr {
+    color: #bbb;
+    background-color: #bbb;
+    height: 1px;
+    flex: 0 1 auto;
+    margin: 1em 0;
+    padding: 0;
+    border: none;
+}
+
+.hljs-operator {
+    color: #868686;
+    /* There is a bug where the syntax highlighter would pick no color for e.g. `&&` symbols in the code samples. Let's overwrite this */
+}
+
+
+/**
+* Links
+*/
+
+a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #0366d6;
+}
+
+a:hover {
+    color: #0366d6;
+    text-decoration: underline;
+}
+
+pre {
+    background-color: #f6f8fa;
+    border-radius: 3px;
+    font-size: 85%;
+    line-height: 1.45;
+    overflow: auto;
+    padding: 16px;
+}
+
+
+/**
+* Code blocks
+*/
+
+code {
+    background-color: rgba(27, 31, 35, .05);
+    border-radius: 3px;
+    font-size: 85%;
+    margin: 0;
+    word-wrap: break-word;
+    padding: .2em .4em;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+}
+
+pre>code {
+    background-color: transparent;
+    border: 0;
+    display: inline;
+    line-height: inherit;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
+    word-wrap: normal;
+    font-size: 100%;
+}
+
+
+/**
+* Blockquotes
+*/
+
+blockquote {
+    margin-left: 30px;
+    margin-top: 0px;
+    margin-bottom: 16px;
+    border-left-width: 3px;
+    padding: 0 1em;
+    color: #828282;
+    border-left: 4px solid #e8e8e8;
+    padding-left: 15px;
+    font-size: 18px;
+    letter-spacing: -1px;
+    font-style: italic;
+}
+
+blockquote * {
+    font-style: normal !important;
+    letter-spacing: 0;
+    color: #6a737d !important;
+}
+
+
+/**
+* Tables
+*/
+
+table {
+    border-spacing: 2px;
+    display: block;
+    font-size: 14px;
+    overflow: auto;
+    width: 100%;
+    margin-bottom: 16px;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+th {
+    font-weight: 600;
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+}
+
+table tr:nth-child(2n) {
+    background-color: #f6f8fa;
+}
+
+
+/**
+* Others
+*/
+
+img {
+    max-width: 100%;
+}
+
+p {
+    line-height: 24px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #24292e;
+}
+
+ul {
+    margin-top: 0;
+}
+
+li {
+    color: #24292e;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+li+li {
+    margin-top: 0.25em;
+}
+
+* {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #24292e;
+}
+
+a:visited {
+    color: #0366d6;
+}
+
+h1,
+h2,
+h3 {
+    border-bottom: 1px solid #eaecef;
+    color: #111;
+    /* Darker */
+}
+
+code>* {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+}</style></head><body><h1 id="documentation-processus-alignement">DOCUMENTATION PROCESSUS ALIGNEMENT</h1>
+    <h3 id="table-des-matieres">Table des matières :</h3>
+    <ul>
+        <li><a href="#documentation-processus-alignement">DOCUMENTATION PROCESSUS ALIGNEMENT</a>
+            <ul>
+                <li><a href="#table-des-matieres">Table des matières</a></li>
+                <li><a href="#i-generation-des-candidats">I. Génération des candidats</a>
+                    <ul>
+                        <li><a href="#1-extraction-des-donnees-depuis-le-serveur-pra-avec-des-requetes-sql">1. Extraction des données depuis le serveur PRA avec des requêtes SQL</a>
+                            <ul>
+                                <li><a href="#a-les-donnees-pour-openrefine">a. Les données pour OpenRefine</a></li>
+                                <li><a href="#b-le-nombre-de-liens-a-la-creation-par-entite-tms">b. Le nombre de liens à la création par entité TMS</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#2-projet-openrefine">2. Projet OpenRefine</a>
+                            <ul>
+                                <li><a href="#a-quelques-traitement-de-donnees">a. Quelques traitement de données</a></li>
+                                <li><a href="#b-utilisation-de-lapi-de-reconciliation-wikidata-fr-w3c">b. Utilisation de l&#39;API de Réconciliation Wikidata fr (W3C)</a></li>
+                                <li><a href="#c-extraction-des-resultats-de-lapi">c. Extraction des résultats de l&#39;API</a></li>
+                                <li><a href="#d-export-du-projet-en-csv">d. Export du projet en csv</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#ii-construction-de-la-base-principale-postgre-pour-lapplication">II. Construction de la base principale Postgre pour l&#39;application</a>
+                    <ul>
+                        <li><a href="#1-pretraitements-des-candidats">1. Prétraitements des candidats</a>
+                            <ul>
+                                <li><a href="#a-recuperation-des-donnees-wikidata-pour-chaque-candidat">a. Récupération des données Wikidata pour chaque candidat</a>
+                                    <ul>
+                                        <li><a href="#a1-les-dates">a.1. Les dates</a></li>
+                                        <li><a href="#a2-les-lieux">a.2. Les Lieux</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#b-exclusion-des-candidats-ayant-des-dates-avec-un-ecart-de-de-100-ans-avec-celles-de-tms">b. Exclusion des candidats ayant des dates avec un écart de + de 100 ans avec celles de TMS</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#2-recuperation-des-entites-deja-alignees-sur-wikidata">2. Récupération des entités déjà alignées sur Wikidata</a></li>
+                        <li><a href="#3-construction-des-tables">3. Construction des tables</a>
+                            <ul>
+                                <li><a href="#a-creation-des-csv-de-base-pour-les-differentes-tables">a. Création des CSV de base pour les différentes tables</a></li>
+                                <li><a href="#b-calcul-des-flags-des-donnees-principales-pour-laffichage-dans-lapplication">b. Cacul des flags des données principales pour l&#39;affichage dans l&#39;application</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#4-creation-de-la-base-de-lapplication-dans-dbeaver">4. Création de la base de l&#39;application dans DBeaver</a>
+                            <ul>
+                                <li><a href="#a-creation-dun-schema-dedie-sur-le-serveur-postgre-du-serveur-lab">a. Création d&#39;un schéma dédié sur le serveur Postgre du serveur LAB</a></li>
+                                <li><a href="#b-creation-des-tables-a-partir-des-csv">b. Création des tables à partir des csv</a>
+                                    <ul>
+                                        <li><a href="#b1-import-des-csv-et-completion-des-tables-importees">b.1. Import des csv et complétion des tables importées</a></li>
+                                        <li><a href="#b2-creation-des-tables-utilisateur-et-historique">b.2. Création des tables utilisateur et historique</a></li>
+                                        <li><a href="#b3-rajouter-les-contraintes-de-cles-etrangeres">b.3. Rajouter les contraintes de clés étrangères</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#iii-creation-dune-table-des-donnees-tms-pour-laffichage-dans-lapplication">III. Création d&#39;une table des données TMS pour l&#39;affichage dans l&#39;application</a></li>
+                <li><a href="#iv-inscription-des-alignements-sur-wikidata">IV. Inscription des alignements sur Wikidata</a>
+                    <ul>
+                        <li><a href="#1-personnes-et-institutions-alignees-et-publiees-sur-le-repertoire-des-artistes-et-personnalites">1. Personnes et Institutions alignées et publiées sur le répertoire des artistes et personnalités</a>
+                            <ul>
+                                <li><a href="#a-recuperation-des-ids-tms-avec-le-statut_validation-aligne-et-du-ou-des-candidats-valides-une-ligne-par-paire-tms-candidat-distincte">a. Récupération des ids TMS avec le <code>statut_validation</code> &quot;aligne&quot; et du ou des candidats validés (une ligne par paire TMS-candidat distincte)</a></li>
+                                <li><a href="#b-recuperation-des-ids-tms-publies-sur-le-repertoire">b. Récupération des ids TMS publiés sur le répertoire</a></li>
+                                <li><a href="#c-exclusion-des-ids-tms-non-publies-sur-le-repertoire-et-formatage-pour-quickstatements">c. Exclusion des ids TMS non publiés sur le répertoire et formatage pour Quickstatements</a></li>
+                                <li><a href="#d-inscription-via-quickstatements">d. Inscription via Quickstatements</a></li>
+                                <li><a href="#e-mise-a-jour-du-statut_validation-des-entites-tms-concernees">e. Mise à jour du statut_validation des entités TMS concernées</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#2-personnes-et-institutions-non-alignees-et-publiees-sur-le-repertoire-des-artistes-et-personnalites">2. Personnes et institutions non-alignées et publiées sur le répertoire des artistes et personnalités</a></li>
+                        <li><a href="#3-personnes-et-institutions-non-publiees-dans-le-repertoire-des-artistes-et-personnalites">3. Personnes et institutions non publiées dans le répertoire des artistes et personnalités</a>
+                            <ul>
+                                <li><a href="#a-les-entitees-tms-alignees">a. Les entitées TMS alignées</a></li>
+                                <li><a href="#b-les-entitees-tms-non-alignees">b. Les entitées TMS non alignées</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#v-import-de-nouvelles-entites-tms-dans-la-base-de-2amo">V. Import de nouvelles entités TMS dans la base de 2AMO</a></li>
+                <li><a href="#liste-des-scripts-et-documents-cites">LISTE DES SCRIPTS ET DOCUMENTS CITES</a>
+                    <ul>
+                        <li><a href="#scripts">Scripts</a></li>
+                        <li><a href="#documents">Documents</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    
+    
+    <h2 id="i-generation-des-candidats">I. Génération des candidats</h2>
+    <p>Voir le <a href="./Schemas/schema_global_processus_alignement.png">schéma global</a> du processus d&#39;alignement</p>
+    <h3 id="1-extraction-des-donnees-depuis-le-serveur-pra-avec-des-requetes-sql">1. Extraction des données depuis le serveur PRA avec des requêtes SQL</h3>
+    <h4 id="a-les-donnees-pour-openrefine">a. Les données pour OpenRefine</h4>
+    <p><strong>Pour X entités en hasard</strong> (X étant un nombre à déterminer) : </p>
+    <ul>
+        <li>Requête SQL de récupération de tous les IDs TMS dans le serveur PRA :<pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> ConstituentID 
+            <span class="hljs-keyword">FROM</span> Constituents;
+        </code></pre>
+    </li>
+    <li>Export du résultat en csv</li>
+    <li>Utiliser le <a href="./Scripts/sample_maker_v2.py">script dédié à la récupération d&#39;entités au hasard et la génération de la requête SQL</a>. </li>
+</ul>
+<p>Paramètres du script :</p>
+<ul>
+    <li>nom/chemin du csv avec toutes les ID</li>
+    <li>nom/chemin voulu pour le fichier .txt de sortie pour les IDs et la requête SQL générée</li>
+    <li>Liste des types inclus et liste des types exclus (les types correspondent aux valeurs possibles la colonne <code>ConstituentTypeID</code>, pour leur signification, voir la table <code>ConstituentTypes</code>).</li>
+</ul>
+<p>Sortie du script :</p>
+<ul>
+    <li>Format : .txt</li>
+    <li>Contenu : <ul>
+        <li>Liste des IDs sélectionnés</li>
+        <li>Distribution des IDs sélectionnés par types</li>
+        <li>Requête SQL</li>
+    </ul>
+</li>
+</ul>
+<p>Pour une <strong>liste d&#39;entités déjà déterminée</strong> : utiliser la requête SQL ci-dessous sur le serveur PRA en remplaçant &quot;liste, des, IDs...&quot; par la liste des ID TMS des dites entités.</p>
+<pre><code class="lang-sql">WITH DomaineCTE AS (
+    <span class="hljs-keyword">SELECT</span> c.ConstituentID,
+    c.ConstituentTypeID <span class="hljs-keyword">as</span> <span class="hljs-keyword">Type</span>,
+    c.DisplayName <span class="hljs-keyword">AS</span> Nom_complet,
+    can1.DisplayName <span class="hljs-keyword">AS</span> Etat_civil,
+    can2.LastName <span class="hljs-keyword">AS</span> Nom_de_famille,
+    cg1.Locale <span class="hljs-keyword">AS</span> Date_naissance, 
+    cg1.City <span class="hljs-keyword">AS</span> Lieu_naissance,
+    cg2.Locale <span class="hljs-keyword">AS</span> Date_mort, 
+    cg2.City <span class="hljs-keyword">AS</span> Lieu_mort,
+    cg3.Lot <span class="hljs-keyword">AS</span> Date_deb_activite,
+    cg3.Concession <span class="hljs-keyword">AS</span> Date_fin_activite, 
+    cg3.City <span class="hljs-keyword">AS</span> Lieu_activite,
+    STRING_AGG(uf.UserFieldName, <span class="hljs-string">';'</span>) <span class="hljs-keyword">AS</span> Domaine_activite_concat,
+    cg4.Country <span class="hljs-keyword">AS</span> Nationalite
+    <span class="hljs-keyword">FROM</span> Constituents c
+    <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> ConAltNames can1 <span class="hljs-keyword">ON</span> c.ConstituentID = can1.ConstituentID <span class="hljs-keyword">AND</span> can1.NameType <span class="hljs-keyword">LIKE</span> N<span class="hljs-string">'état civil'</span>
+    <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> ConAltNames can2 <span class="hljs-keyword">ON</span> c.ConstituentID = can2.ConstituentID <span class="hljs-keyword">AND</span> can2.NameType <span class="hljs-keyword">LIKE</span> N<span class="hljs-string">'Nom Principal'</span>
+    <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> ConGeography cg1 <span class="hljs-keyword">ON</span> c.ConstituentID = cg1.ConstituentID <span class="hljs-keyword">AND</span> cg1.GeoCodeID = <span class="hljs-number">2</span>
+    <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> ConGeography cg2 <span class="hljs-keyword">ON</span> c.ConstituentID = cg2.ConstituentID <span class="hljs-keyword">AND</span> cg2.GeoCodeID = <span class="hljs-number">3</span>
+    <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> ConGeography cg3 <span class="hljs-keyword">ON</span> c.ConstituentID = cg3.ConstituentID <span class="hljs-keyword">AND</span> cg3.GeoCodeID = <span class="hljs-number">4</span>
+    <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> ConGeography cg4 <span class="hljs-keyword">ON</span> c.ConstituentID = cg4.ConstituentID <span class="hljs-keyword">AND</span> cg4.GeoCodeID = <span class="hljs-number">5</span>
+    <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> UserFieldXrefs ufx <span class="hljs-keyword">ON</span> c.ConstituentID = ufx.ID <span class="hljs-keyword">AND</span> ufx.ContextID = <span class="hljs-number">40</span>
+    <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> UserFields uf <span class="hljs-keyword">ON</span> ufx.UserFieldID = uf.UserFieldID <span class="hljs-keyword">AND</span> <span class="hljs-keyword">TRY_CAST</span>(FieldValue <span class="hljs-keyword">AS</span> <span class="hljs-built_in">int</span>) <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">AND</span> <span class="hljs-keyword">TRY_CAST</span>(FieldValue <span class="hljs-keyword">AS</span> <span class="hljs-built_in">int</span>) != <span class="hljs-number">0</span>
+    <span class="hljs-keyword">WHERE</span> c.ConstituentID <span class="hljs-keyword">IN</span> (<span class="hljs-string">'Liste, des, IDs...'</span>)
+    <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> c.ConstituentID, c.ConstituentTypeID, c.DisplayName, can1.DisplayName, can2.LastName, 
+    cg1.Locale, cg1.City, cg2.Locale, cg2.City, cg3.Lot, cg3.Concession, cg3.City, cg4.Country
+    )
+    <span class="hljs-keyword">SELECT</span> ConstituentID <span class="hljs-keyword">AS</span> <span class="hljs-keyword">ID</span>,
+    <span class="hljs-keyword">Type</span>,
+    Nom_complet,
+    Etat_civil,
+    Nom_de_famille,
+    Date_naissance,
+    Lieu_naissance,
+    Date_mort,
+    Lieu_mort,
+    Date_deb_activite,
+    Date_fin_activite,
+    Lieu_activite,
+    <span class="hljs-keyword">CASE</span> 
+    <span class="hljs-keyword">WHEN</span> Domaine_activite_concat = <span class="hljs-string">'documentation personnalités'</span> <span class="hljs-keyword">THEN</span> <span class="hljs-literal">NULL</span>
+    <span class="hljs-keyword">WHEN</span> Domaine_activite_concat = <span class="hljs-string">'dossier à créer'</span> <span class="hljs-keyword">THEN</span> <span class="hljs-literal">NULL</span>
+    <span class="hljs-keyword">ELSE</span> Domaine_activite_concat
+    <span class="hljs-keyword">END</span> <span class="hljs-keyword">AS</span> Domaine_activite,
+    Nationalite
+    <span class="hljs-keyword">FROM</span> DomaineCTE;
+</code></pre>
+<blockquote>
+    <p>Autres options : </p>
+    <ul>
+        <li>Rajouter une possibilité pour exclure des ID TMS à partir d&#39;une liste d&#39;ID exclus (permettrait d&#39;éviter de traiter les entités déjà présentes dans l&#39;application)</li>
+        <li>Possibilité de sélectionner les données directement dans la table extraite du PRA sur le serveur lab, schema <code>main</code>, table <code>tms-constituent_constituent-description</code> au lieu de passer par la requête complète mais du coup traitement des données différent à prévoir dans OpenRefine.</li>
+    </ul>
+</blockquote>
+<hr>
+<h4 id="b-le-nombre-de-liens-a-la-creation-par-entite-tms">b. Le nombre de liens à la création par entité TMS</h4>
+<p>Requête SQL à executer sur le serveur PRA : </p>
+<pre><code class="lang-sql"><span class="hljs-keyword">SELECT</span> c.ConstituentID,
+    <span class="hljs-keyword">COUNT</span>(<span class="hljs-keyword">DISTINCT</span> r.RoleID) <span class="hljs-keyword">AS</span> nb_roles_creation
+    <span class="hljs-keyword">FROM</span> Constituents c
+    <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> vgsdvConXRefs_Details vcxd
+    <span class="hljs-keyword">ON</span> c.ConstituentID = vcxd.ConstituentID
+    <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> ConXrefs cx
+    <span class="hljs-keyword">ON</span> cx.ConXrefID = vcxd.ConXrefID
+    <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> <span class="hljs-keyword">Roles</span> r
+    <span class="hljs-keyword">ON</span> r.RoleID = cx.RoleID
+    <span class="hljs-keyword">WHERE</span> r.RoleTypeID = <span class="hljs-number">1</span> 
+    <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> c.ConstituentID
+    <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">COUNT</span>(<span class="hljs-keyword">DISTINCT</span> r.RoleID) <span class="hljs-keyword">DESC</span>;
+</code></pre>
+<p>Récupérer les résultats en csv.</p>
+<h3 id="2-projet-openrefine">2. Projet OpenRefine</h3>
+<p><a href="./Projet_OpenRefine/">Dossier Projet openrefine</a></p>
+<h4 id="a-quelques-traitement-de-donnees">a. Quelques traitements de données</h4>
+<p>Traitements réalisés :</p>
+<ul>
+    <li>Exclusion et corrections de certaines valeurs (RegEx):<ul>
+        <li>date_naissance / date_mort : suppression des str &quot;en &quot; et &quot;vers &quot;<blockquote>
+            <p>Si utilisation de la table <code>tms-constituent_constituent-description</code> : étapes différentes à définir car il faut alors sélectionner/traiter les dates de naissance et de mort pour qu&#39;elles répondent aux specs de l&#39;API.</p>
+        </blockquote>
+    </li>
+    <li>Domaines_activite : suppression des str documentation personnalités | extérieure, sans dossier, dossier à créer, autre documentation</li>
+    <li>Roles (liens à la création) : suppression des str producteur de fonds, exécutant, anciennement attribué à, attribué à, D&#39;après, atelier de, praticien, genre de.</li>
+    <li>Nationalité : remplacement des str &quot;Russie, Fédération de&quot; par &quot;Russie&quot;</li>
+    <li>Toutes les colonnes : suppression des espaces inutiles</li>
+</ul>
+</li>
+<li>Déballage des colonnes agrégées en une valeur par colonne (split):<blockquote>
+    <p>Si utilisation de la table <code>tms-constituent_constituent-description</code> : étapes différentes à définir car il faut alors déballer des formats json.</p>
+    <ul>
+        <li>Colonnes concernées : Roles, Nationalites, Domaines_activite</li>
+        <li>Méthode utilisée dans le projet : formule python.</li>
+    </ul>
+</blockquote>
+</li>
+</ul>
+<h4 id="b-utilisation-de-lapi-de-reconciliation-wikidata-fr-w3c">b. Utilisation de l&#39;API de Réconciliation Wikidata fr (W3C)</h4>
+<ul>
+    <li>Réconciliation à partir de la colonne <code>DisplayName</code>, choisir l&#39;API de réconciliation Wikidata fr.</li>
+    <li>Mapping des données dans OpenRefine vers les propriétés Wikidata<blockquote>
+        <p>Voir le <a href="./Mapping_TMS_wikidata.xlsx">mapping</a> réalisé en amont</p>
+        <ul>
+            <li>Pour les colonnes déballées : mappage des colonnes issues d&#39;une même colonne agrégée avec la même propriété correspondante.</li>
+            <li>Ne pas mapper ConstituentID</li>
+        </ul>
+    </blockquote>
+</li>
+<li>Paramètres : <ul>
+    <li>Réconcilier avec le type : <code>personne ou organisation</code> (Q106559804) si l&#39;on traite aussi bien des personnes morales que physique.</li>
+    <li>Pas de nombre maximal de candidat envoyé</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+    <p>Potentielle évolution future : Utiliser l&#39;API directement en script python (<a href="https://www.w3.org/community/reports/reconciliation/CG-FINAL-specs-0.2-20230410/">voir specs de l&#39;API</a>) et les (<a href="../Notes_et_observations/propriétés_api_reconciliation.docx">notes sur son fonctionnement</a>) au lieu de passer par OpenRefine. Il faudra cependant réaliser des tests de masse pour savoir en quelles proportions fractionner les queries afin de ne pas obtenir trop d&#39;erreurs. OpenRefine gère le fractionnement de façon autonome.</p>
+</blockquote>
+<h4 id="c-extraction-des-resultats-de-lapi">c. Extraction des résultats de l&#39;API</h4>
+<p>Formule python pour extraire les QID des candidats et leur score dans une nouvelle colonne à partir de la colonne <code>DisplayName</code> :</p>
+<pre><code class="lang-python">    <span class="hljs-keyword">if</span> hasattr(cell<span class="hljs-selector-class">.recon</span>, <span class="hljs-string">'error'</span>) and cell<span class="hljs-selector-class">.recon</span><span class="hljs-selector-class">.error</span>:
+    return <span class="hljs-string">"error : "</span> + cell<span class="hljs-selector-class">.recon</span><span class="hljs-selector-class">.error</span>
+    elif not cell<span class="hljs-selector-class">.recon</span><span class="hljs-selector-class">.candidates</span> or len(cell<span class="hljs-selector-class">.recon</span><span class="hljs-selector-class">.candidates</span>) == <span class="hljs-number">0</span>:
+    return <span class="hljs-string">""</span>
+    <span class="hljs-keyword">else</span>:
+    candidates_list = []
+    <span class="hljs-keyword">for</span> candidate <span class="hljs-keyword">in</span> cell<span class="hljs-selector-class">.recon</span><span class="hljs-selector-class">.candidates</span>:
+    candidates_list.append(<span class="hljs-string">"('"</span> + candidate<span class="hljs-selector-class">.id</span> + <span class="hljs-string">"', "</span> + str(candidate.score) + <span class="hljs-string">")"</span>)
+    
+    return <span class="hljs-string">"{candidats : ["</span> + <span class="hljs-string">", "</span>.join(candidates_list) + <span class="hljs-string">"]}"</span>
+</code></pre>
+<p>Dans le cas où le processus de réconciliation aurait provoqué des erreurs : la nouvelle colonne <code>candidats_scores_wikidata</code> contiendra alors des messages ressemblant à <code>error : [type d&#39;erreur]</code>. L&#39;occurrence d&#39;erreurs dépend grandement de la stabilité du service de l&#39;API qui peut avoir des faiblesses de temps à autre.</p>
+<h4 id="d-export-du-projet-en-csv">d. Export du projet en csv</h4>
+<p><a href="alignements_sans_error_complet.csv">Aperçu de l&#39;export final OpenRefine</a></p>
+<p>S&#39;il y eu des erreurs générées par le processus de réconciliation : </p>
+<ul>
+    <li>créer un nouveau csv qui ne garde que les lignes concernées par des messages d&#39;erreur (<a href="./Scripts/recup_batch_error.py">voir script dédié</a>).</li>
+    <li>Importer le csv en tant que nouveau projet dans OpenRefine</li>
+    <li>Supprimer la colonne <code>candidats_scores_wikidata</code></li>
+    <li>Relancer le <a href="#b-utilisation-de-lapi-de-reconciliation-wikidata-fr-w3c">processus de réconciliation avec l&#39;API Wikidata fr</a> et <a href="#c-extraction-des-resultats-de-lapi">extraire les QID et score des candidats</a>.</li>
+    <li>Exporter le projet OpenRefine en csv et remplacer les lignes avec des erreurs dans le premier export de projet par celle de ce deuxième export (<a href="./Scripts/fusion_batch_error_et_premier_batch.py">voir script dédié</a>)</li>
+    <li>S&#39;il y a encore des erreurs : répéter les étapes précédentes jusqu&#39;à ce que le processus de réconciliation n&#39;en génère plus.</li>
+</ul>
+
+<h2 id="ii-construction-de-la-base-principale-postgre-pour-lapplication">II. Construction de la base principale Postgre pour l&#39;application</h2>
+<h3 id="1-pretraitements-des-candidats">1. Prétraitements des candidats</h3>
+<h4 id="a-recuperation-des-donnees-wikidata-pour-chaque-candidat">a. Récupération des données Wikidata pour chaque candidat</h4>
+<h5 id="a1-les-dates">a.1. Les dates</h5>
+<p><a href="./Scripts/recuperation_json_asynchrone_candidats.py">Le script de téléchargement des données des candidats</a></p>
+<p>Fonctionnement : </p>
+<ul>
+    <li>Extraction des QIDS et scores API de la colonne <code>candidats_scores_wikidata</code></li>
+    <li>Téléchargement des données des candidats via <code>https://www.wikidata.org/wiki/Special:EntityData/{qid}.json</code>.</li>
+    <li>création d&#39;un dossier pour y stocker les fichiers json.</li>
+    <li>Création d&#39;un cache et d&#39;un backup de cache en cas d&#39;interruption du script et/ou corruption du cache.</li>
+</ul>
+<table>
+    <thead>
+        <tr>
+            <th>Paramètres</th>
+            <th>Description</th>
+            <th>Format/Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>CSV_FILE</td>
+            <td>Chemin du csv final OpenRefine. Doit contenir la colonne <code>candidats_scores_wikidata</code> qui stocke les identifiants Wikidata (QID) et leurs scores renvoyés par l&#39;API.</td>
+            <td><code>.csv</code></td>
+        </tr>
+        <tr>
+            <td>CACHE_FILE</td>
+            <td>Chemin du fichier créé pour stocker le cache.</td>
+            <td><code>.json</code></td>
+        </tr>
+        <tr>
+            <td>CACHE_BACKUP_FILE</td>
+            <td>Chemin du fichier créé pour le backup du cache (en cas d&#39;interruption de script).</td>
+            <td><code>.json.bak</code></td>
+        </tr>
+        <tr>
+            <td>DUMP_DIR</td>
+            <td>Path (chemin du répertoire dans lequel les full dumps seront stockés).</td>
+            <td><code>/dir</code></td>
+        </tr>
+        <tr>
+            <td>DUMP_DIR.mkdir(exist_ok=True)</td>
+            <td>Activaton ou désactivation de la condition d&#39;existence du dossier de stockage pour les full dumps.</td>
+            <td><code>bool</code></td>
+        </tr>
+        <tr>
+            <td>REQUEST_DELAY</td>
+            <td>Délais en secondes entre chaque requête HTTP. Permet d&#39;éviter les erreur de time out.</td>
+            <td><code>int</code></td>
+        </tr>
+        <tr>
+            <td>last_request_time</td>
+            <td>Variable globale pour tracker le timestamp de la dernière requête HTTP, utilisée avec REQUEST_DELAY pour contrôler le rythme des appels. Initialisée à 0.</td>
+            <td><code>float</code></td>
+        </tr>
+    </tbody>
+</table>
+<hr>
+<p><a href="./Scripts/Extraction_dates_from_full_dumps.py">Le script d&#39;extraction des dates</a></p>
+<p>Fonctionnement :</p>
+<ul>
+    <li>Parcourt tous les fichiers JSON du dossier spécifié contenant les full dumps des candidats</li>
+    <li>Extrait les dates de <a href="https://www.wikidata.org/wiki/Property:P569">naissance (P569)</a> et de <a href="https://www.wikidata.org/wiki/Property:P570">mort (P570)</a> avec leur précision et leur rang</li>
+    <li>Nettoie les dates en supprimant le suffixe &quot;T00:00:00Z&quot;</li>
+    <li>Sauvegarde les résultats dans un fichier CSV avec indicateur de progression</li>
+    <li>Gère les structures JSON variées (avec ou sans clé &#39;entities&#39;)</li>
+</ul>
+<table>
+    <thead>
+        <tr>
+            <th>Paramètres</th>
+            <th>Description</th>
+            <th>Format/Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>dossier_json</td>
+            <td>Chemin du dossier contenant les fichiers JSON des full dumps</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>chemin_csv_sortie</td>
+            <td>Chemin du fichier de sortie pour les dates extraites</td>
+            <td><code>.csv</code></td>
+        </tr>
+        <tr>
+            <td>prop</td>
+            <td>Propriétés Wikidata : P569 (naissance), P570 (mort)</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>typ</td>
+            <td>Type de date : &#39;naissance&#39; ou &#39;mort&#39;</td>
+            <td><code>str</code></td>
+        </tr>
+    </tbody>
+</table>
+<p>Structure du fichier de sortie :</p>
+<table>
+    <thead>
+        <tr>
+            <th>Colonne</th>
+            <th>Description</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>QID</td>
+            <td>Identifiant Wikidata de l&#39;entité</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>type_date</td>
+            <td>Type de date (&#39;naissance&#39; ou &#39;mort&#39;)</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>date</td>
+            <td>Date extraite (format ISO, nettoyée)</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>precision</td>
+            <td>Précision de la date selon Wikidata</td>
+            <td><code>int</code></td>
+        </tr>
+        <tr>
+            <td>rang</td>
+            <td>Rang de la déclaration dans Wikidata</td>
+            <td><code>str</code></td>
+        </tr>
+    </tbody>
+</table>
+<h5 id="a2-les-lieux">a.2. Les Lieux</h5>
+<p><a href="./Scripts/recuperation_json_lieux_only_batchs_sparql.py">Le script de téléchargement des labels et rangs des lieux de naissance et de mort</a></p>
+<p>Fonctionnement :</p>
+<ul>
+    <li>Extraction des QID des candidats de la colonne <code>candidats_scores_wikidata</code></li>
+    <li>Regroupe les QID par paquets dont la quantité est définiepar BATCH_SIZE</li>
+    <li>Exécute une requête SPARQL par paquet pour récupérer les lieux de <a href="https://www.wikidata.org/wiki/Property:P19">naissance(P19)</a> et de <a href="https://www.wikidata.org/wiki/Property:P20">mort(P20)</a> des candidats avec leur rang. Les requêtes sont espacées de 5 sec pour éviter les erreurs de time out. </li>
+    <li>création d&#39;un dossier pour y stocker les résultats des requêtes en json.</li>
+    <li>Création d&#39;un cache au fur et à mesure des requêtes en cas d&#39;interruption de script.</li>
+</ul>
+<table>
+    <thead>
+        <tr>
+            <th>Paramètres</th>
+            <th>Description</th>
+            <th>Format/Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>SPARQL_ENDPOINT</td>
+            <td>URL de l&#39;endpoint SPARQL de Wikidata : <a href="https://query.wikidata.org/sparql"><code>https://query.wikidata.org/sparql</code></a></td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>CSV_PATH</td>
+            <td>Chemin du csv final OpenRefine.</td>
+            <td><code>.csv</code></td>
+        </tr>
+        <tr>
+            <td>CACHE_PATH</td>
+            <td>Chemin du fichier créé pour stocker le cache.</td>
+            <td><code>.json</code></td>
+        </tr>
+        <tr>
+            <td>DUMP_DIR</td>
+            <td>Chemin du répertoire dans lequel les full dumps seront stockés.</td>
+            <td><code>/dir</code></td>
+        </tr>
+        <tr>
+            <td>BATCH_SIZE</td>
+            <td>Nombre de QID traités simultanément dans une seule requête SPARQL (50 par défaut) pour optimiser les performances et respecter les limites de l&#39;API.</td>
+            <td><code>int</code></td>
+        </tr>
+        <tr>
+            <td>HEADERS</td>
+            <td>Dictionnaire contenant les en-têtes HTTP spécifiant le format de réponse souhaité (JSON) pour les requêtes SPARQL.</td>
+            <td><code>dict</code></td>
+        </tr>
+    </tbody>
+</table>
+<hr>
+<p><a href="./Scripts/Extraction_lieux_et_rang_from_batch_sparql.py">Le script d&#39;extraction des labels et rangs des lieux de naissance et de mort</a></p>
+<p>Fonctionnement :</p>
+<ul>
+    <li>Parcourt tous les fichiers JSON du dossier contenant les résultats des requêtes SPARQL</li>
+    <li>Extrait les lieux de naissance et de mort avec leurs labels et rangs</li>
+    <li>Sépare les entités ayant des lieux de celles n&#39;en ayant pas</li>
+    <li>Génère deux fichiers CSV : un avec les lieux et un avec les QID sans lieu</li>
+    <li>Gère les erreurs de format JSON et d&#39;encodage avec rapports détaillés</li>
+    <li>Fournit des statistiques complètes sur le traitement</li>
+</ul>
+<table>
+    <thead>
+        <tr>
+            <th>Paramètres</th>
+            <th>Description</th>
+            <th>Format/Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>dossier_json</td>
+            <td>Chemin du répertoire contenant les dumps JSON SPARQL</td>
+            <td><code>/dir</code></td>
+        </tr>
+        <tr>
+            <td>fichier_sortie</td>
+            <td>Nom du fichier CSV de sortie principal (avec lieux)</td>
+            <td><code>.csv</code></td>
+        </tr>
+        <tr>
+            <td>fichier_sortie_sans_lieu</td>
+            <td>Nom du fichier CSV pour les QID sans lieu</td>
+            <td><code>.csv</code></td>
+        </tr>
+        <tr>
+            <td>entites_rencontrees</td>
+            <td>Set des QID de toutes les entités rencontrées</td>
+            <td><code>set</code></td>
+        </tr>
+        <tr>
+            <td>entites_ajoutees</td>
+            <td>Set des QID des entités ajoutées au CSV des lieux</td>
+            <td><code>set</code></td>
+        </tr>
+    </tbody>
+</table>
+<p>Structure du fichier de sortie principal :</p>
+<table>
+    <thead>
+        <tr>
+            <th>Colonne</th>
+            <th>Description</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>QID</td>
+            <td>Identifiant Wikidata du candidat</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>type_lieu</td>
+            <td>Type de lieu (&#39;naissance&#39; ou &#39;mort&#39;)</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>nom_lieu</td>
+            <td>Label du lieu en français</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>rang</td>
+            <td>Rang de la déclaration dans Wikidata</td>
+            <td><code>str</code></td>
+        </tr>
+    </tbody>
+</table>
+<p>Structure du fichier de sortie des QID sans lieu :</p>
+<table>
+    <thead>
+        <tr>
+            <th>Colonne</th>
+            <th>Description</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>QID</td>
+            <td>Identifiant Wikidata du candidat sans lieu</td>
+            <td><code>str</code></td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="b-exclusion-des-candidats-ayant-des-dates-avec-un-ecart-de-de-100-ans-avec-celles-de-tms">b. Exclusion des candidats ayant des dates avec un écart de + de 100 ans avec celles de TMS</h4>
+<p><a href="./Scripts/comparaison_dates.py">Le script comparaison des dates TMS-Wikidata et exclusion des candidats non alignables</a></p>
+<p>Fonctionnement :</p>
+<ul>
+    <li>Compare les dates de naissance et de mort extraites des alignements avec celles de Wikidata</li>
+    <li>Parse et normalise les dates dans différents formats (AAAA, AAAA-MM, JJ/MM/AAAA, etc.)</li>
+    <li>Gère les dates historiques anciennes et les précisions variables</li>
+    <li>Calcule les écarts en années entre les dates de TMS et Wikidata</li>
+    <li>Génère des visualisations des écarts par tranche et par rang de déclaration</li>
+    <li>Identifie et exclut les QID qui n&#39;ont que des dates présentant des écarts &gt; 100 ans avec TMS</li>
+    <li>Produit des rapports détaillés avec logging des erreurs</li>
+</ul>
+<table>
+    <thead>
+        <tr>
+            <th>Paramètres</th>
+            <th>Description</th>
+            <th>Format/Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>fichier_alignement</td>
+            <td>Chemin du csv final OpenRefine.</td>
+            <td><code>.csv</code></td>
+        </tr>
+        <tr>
+            <td>fichier_dates_wikidata</td>
+            <td>Fichier des dates extraites de Wikidata</td>
+            <td><code>.csv</code></td>
+        </tr>
+        <tr>
+            <td>fichier_ecarts</td>
+            <td>Fichier de sortie avec tous les écarts calculés</td>
+            <td><code>.csv</code></td>
+        </tr>
+        <tr>
+            <td>fichier_ecarts_sup_100</td>
+            <td>Fichier  des écarts supérieurs à 100 ans</td>
+            <td><code>.csv</code></td>
+        </tr>
+        <tr>
+            <td>fichier_ecarts_inf_100</td>
+            <td>Fichier des écarts inférieurs ou égaux à 100 ans</td>
+            <td><code>.csv</code></td>
+        </tr>
+        <tr>
+            <td>fichier_graphique</td>
+            <td>Graphique de visualisation des écarts</td>
+            <td><code>.png</code></td>
+        </tr>
+        <tr>
+            <td>fichier_exclusion</td>
+            <td>Fichier des QID exclus (écarts &gt; 100 ans uniquement)</td>
+            <td><code>.csv</code></td>
+        </tr>
+        <tr>
+            <td>log_file</td>
+            <td>Fichier de log pour tracer les erreurs et avertissements</td>
+            <td><code>.log</code></td>
+        </tr>
+        <tr>
+            <td>PRECISION_WIKIDATA</td>
+            <td>Dictionnaire de conversion des précisions numériques Wikidata</td>
+            <td><code>dict</code></td>
+        </tr>
+    </tbody>
+</table>
+<p>Structure du fichier de sortie principal (écarts) :</p>
+<table>
+    <thead>
+        <tr>
+            <th>Colonne</th>
+            <th>Description</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>ID_alignement</td>
+            <td>Identifiant de l&#39;entité TMS dans le fichier d&#39;alignement</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>QID</td>
+            <td>Identifiant Wikidata de l&#39;entité</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>Rang</td>
+            <td>Rang de la déclaration dans Wikidata (normal, preferred, deprecated)</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>Type_date</td>
+            <td>Type de date (&#39;naissance&#39; ou &#39;mort&#39;)</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>Date_alignement</td>
+            <td>Date originale du fichier d&#39;alignement</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>Date_wikidata</td>
+            <td>Date formatée ISO de Wikidata</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>Precision_align</td>
+            <td>Précision de la date d&#39;alignement (9=année, 10=mois, 11=jour)</td>
+            <td><code>int</code></td>
+        </tr>
+        <tr>
+            <td>Precision_wikidata</td>
+            <td>Précision de la date Wikidata (lisible)</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>Ecart_annees</td>
+            <td>Écart calculé en années entre les deux dates</td>
+            <td><code>int</code></td>
+        </tr>
+    </tbody>
+</table>
+<p>Structure du fichier d&#39;exclusion :</p>
+<table>
+    <thead>
+        <tr>
+            <th>Colonne</th>
+            <th>Description</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>QID</td>
+            <td>Identifiant Wikidata des entités exclues (écarts &gt; 100 ans uniquement)</td>
+            <td><code>str</code></td>
+        </tr>
+    </tbody>
+</table>
+
+<h3 id="2-recuperation-des-entites-deja-alignees-sur-wikidata">2. Récupération des entités déjà alignées sur Wikidata</h3>
+<ul>
+    <li>Récupération de toutes les entités Wikidata ayant la <a href="https://www.wikidata.org/wiki/Property:P2268">propriété &quot;identifiant Musée d&#39;Orsay d&#39;un artiste&quot; (P2268)</a> avec une <a href="https://query.wikidata.org/#SELECT%20%3FQid%20%3FConstituentID%0AWHERE%20%7B%0A%20%20%3FQid%20wdt%3AP2268%20%3FConstituentID.%0A%20%20%7D">requête SPARQL</a></li>
+    <li>Export des résultats en csv</li>
+    <li>RegEx pour enlever les &quot;<code>http://www.wikidata.org/entity/</code>&quot; de la colonne QID</li>
+</ul>
+
+<h3 id="3-construction-des-tables">3. Construction des tables</h3>
+<h4 id="a-creation-des-csv-de-base-pour-les-differentes-tables">a. Création des CSV de base pour les différentes tables</h4>
+<p>Voir le <a href="./Schemas/construction_tables.png">schéma du script de création des csv de base des tables</a>
+    <a href="./Scripts/construction_des_tables.py">Le script de création des csv de base des tables</a></p>
+    <p>Fonctionnement :</p>
+    <ul>
+        <li><strong>Création de la table TMS</strong> : Agrège les identifiants, noms d&#39;affichage et statuts de validation</li>
+        <li><strong>Extraction des événements TMS</strong> : Traite les dates et lieux de naissance/mort avec normalisation</li>
+        <li><strong>Génération de la table Candidats</strong> : Parse les fichiers JSON pour extraire les métadonnées Wikidata</li>
+        <li><strong>Construction des tables d&#39;événements et lieux candidats</strong> : Filtre et normalise les données temporelles et géographiques</li>
+        <li><strong>Création des relations TMS-Candidats</strong> : Extrait les scores d&#39;alignement depuis la colonne <code>candidats_scores_wikidata</code>.</li>
+        <li><strong>Filtrage global</strong> : Applique des exclusions cohérentes sur toutes les tables</li>
+    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Paramètres globaux</th>
+                <th>Description</th>
+                <th>Format/Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>chemin_csv_tms</td>
+                <td>Chemin du csv final OpenRefine.</td>
+                <td><code>.csv</code></td>
+            </tr>
+            <tr>
+                <td>chemin_csv_nb_liens_creations</td>
+                <td>Chemin du csv généré par la <a href="#b-le-nombre-de-liens-a-la-creation-par-entite-tms">requête sur le serveur PRA</a> pour récupérer le nombre de liens à la création pour chaque entité TMS</td>
+                <td><code>.csv</code></td>
+            </tr>
+            <tr>
+                <td>chemin_csv_qid</td>
+                <td>Chemin du csv indiquant les entités préalablement alignées par la communauté Wikidata généré par <a href="#2-recuperation-des-entites-deja-alignees-sur-wikidata">une requête SPARQL</a></td>
+                <td><code>.csv</code></td>
+            </tr>
+            <tr>
+                <td>dossier_json</td>
+                <td>Chemin du dossier contenant les fichiers JSON <a href="#a1-les-dates">les full dumps des candidats Wikidata</a></td>
+                <td><code>/dir</code></td>
+            </tr>
+            <tr>
+                <td>chemin_csv_exclusion</td>
+                <td>Chemin du csv indiquant les candidats Wikidata à exclure</td>
+                <td><code>.csv</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <p>Fichiers de sortie correspondant aux différentes données pour chaque tables :</p>
+    <pre><code class="lang-python">table_TMS<span class="hljs-selector-class">.csv</span>
+        Evenements_TMS<span class="hljs-selector-class">.csv</span>
+        Table_Candidats<span class="hljs-selector-class">.csv</span>
+        filtered_tables\Evenements_Candidats<span class="hljs-selector-class">.csv</span>
+        filtered_tables\Lieux_Candidats<span class="hljs-selector-class">.csv</span>
+        filtered_tables\Relations_TMS_Candidats.csv
+    </code></pre>
+    <hr>
+    <p>Paramètres par fonction :</p>
+    <p><strong>Table TMS</strong></p>
+    <p><code>recuperation_ID_DisplayName_tms(chemin_csv)</code></p>
+    <ul>
+        <li><strong>Fonction</strong> : Extrait les identifiants TMS uniques avec leurs noms d&#39;affichage</li>
+        <li><strong>Paramètres</strong> : <ul>
+            <li><code>chemin_csv</code> : Chemin du csv final OpenRefine</li>
+        </ul>
+    </li>
+    <li><strong>Retour</strong> : DataFrame avec TMS_ID et DisplayName dédupliqués</li>
+</ul>
+<p><code>ajout_nb_liens_creation(chemin_csv, df_TMS)</code></p>
+<ul>
+    <li><strong>Fonction</strong> : Ajoute le nombre de liens/rôles par entité</li>
+    <li><strong>Paramètres</strong> :<ul>
+        <li><code>chemin_csv</code> : Chemin vers le fichier des comptages de liens</li>
+        <li><code>df_TMS</code> : DataFrame TMS existant</li>
+    </ul>
+</li>
+<li><strong>Retour</strong> : DataFrame TMS enrichi</li>
+</ul>
+<p><code>ajout_statut_validation_deja_alignes(chemin_csv, df_TMS)</code></p>
+<ul>
+    <li><strong>Fonction</strong> : Marque les entités déjà alignées par la communauté</li>
+    <li><strong>Paramètres</strong> :<ul>
+        <li><code>chemin_csv</code> : Chemin vers le fichier des alignements existants</li>
+        <li><code>df_TMS</code> : DataFrame TMS existant</li>
+    </ul>
+</li>
+<li><strong>Retour</strong> : DataFrame TMS avec statut de validation</li>
+</ul>
+<p><strong>Événements TMS</strong></p>
+<p><code>nettoyage_et_recup_precision_date(date_str)</code></p>
+<ul>
+    <li><strong>Fonction</strong> : Normalise les dates et détermine leur précision Wikidata</li>
+    <li><strong>Paramètres</strong> :<ul>
+        <li><code>date_str</code> : Chaîne de date à nettoyer</li>
+    </ul>
+</li>
+<li><strong>Retour</strong> : Tuple (date normalisée, précision Wikidata)</li>
+<li><strong>Gestion</strong> :<ul>
+    <li>Formats supportés : &quot;YYYY ?&quot;, &quot;YYYY&quot;, &quot;YYYY-MM&quot;, &quot;JJ/MM/YYYY&quot;</li>
+    <li>Précisions : 9 (année), 10 (mois), 11 (jour)</li>
+</ul>
+</li>
+</ul>
+<p><code>nettoyage_lieu(lieu_str)</code></p>
+<ul>
+    <li><strong>Fonction</strong> : Nettoie les chaînes de lieux</li>
+    <li><strong>Paramètres</strong> :<ul>
+        <li><code>lieu_str</code> : Chaîne de lieu à nettoyer</li>
+    </ul>
+</li>
+<li><strong>Retour</strong> : Lieu nettoyé ou None</li>
+</ul>
+<p><code>traitement_evenements_tms(chemin_csv_tms)</code></p>
+<ul>
+    <li><strong>Fonction</strong> : Traite les événements TMS avec fusion dates/lieux</li>
+    <li><strong>Paramètres</strong> :<ul>
+        <li><code>chemin_csv_tms</code> : Chemin vers le fichier CSV TMS</li>
+    </ul>
+</li>
+<li><strong>Retour</strong> : DataFrame des événements normalisés</li>
+</ul>
+
+<p><strong>Candidats</strong></p>
+<p><code>extraire_donnees_candidats(qid, claims, labels)</code></p>
+<ul>
+    <li><strong>Fonction</strong> : Extrait les métadonnées d&#39;un candidat Wikidata</li>
+    <li><strong>Paramètres</strong> :<ul>
+        <li><code>qid</code> : Identifiant Wikidata</li>
+        <li><code>claims</code> : Déclarations Wikidata</li>
+        <li><code>labels</code> : Labels multilingues</li>
+    </ul>
+</li>
+<li><strong>Retour</strong> : Liste de tuples (QID, type, nb_id_externes, label)</li>
+</ul>
+<p><code>traiter_dossier(dossier_json, chemin_csv_sortie)</code></p>
+<ul>
+    <li><strong>Fonction</strong> : Traite un dossier de fichiers JSON Wikidata</li>
+    <li><strong>Paramètres</strong> :<ul>
+        <li><code>dossier_json</code> : Chemin vers le dossier JSON</li>
+        <li><code>chemin_csv_sortie</code> : Fichier CSV de sortie</li>
+    </ul>
+</li>
+<li><strong>Gestion</strong> :<ul>
+    <li>Traitement par lots avec rapports de progression</li>
+    <li>Gestion d&#39;erreurs JSON avec compteurs détaillés</li>
+</ul>
+</li>
+</ul>
+
+<p><strong>Relations</strong></p>
+<p><code>extractions_donnees_matchs(chemin_csv_openrefine)</code></p>
+<ul>
+    <li><strong>Fonction</strong> : Extrait les relations TMS-Candidats depuis OpenRefine</li>
+    <li><strong>Paramètres</strong> :<ul>
+        <li><code>chemin_csv_openrefine</code> : Fichier CSV avec résultats OpenRefine</li>
+    </ul>
+</li>
+<li><strong>Retour</strong> : DataFrame des relations avec scores</li>
+<li><strong>Traitement</strong> :<ul>
+    <li>Parsing des structures JSON complexes</li>
+    <li>Correction des formats de clés non standardisés</li>
+</ul>
+</li>
+</ul>
+
+<p><strong>Filtrage</strong></p>
+<p><code>filtrer_qid_candidats_exclus(chemin_csv_candidats, chemin_csv_exclusion)</code></p>
+<ul>
+    <li><strong>Fonction</strong> : Filtre les candidats selon une liste d&#39;exclusion</li>
+    <li><strong>Paramètres</strong> :<ul>
+        <li><code>chemin_csv_candidats</code> : CSV des candidats à filtrer</li>
+        <li><code>chemin_csv_exclusion</code> : CSV des QID à exclure</li>
+    </ul>
+</li>
+<li><strong>Retour</strong> : DataFrame filtré</li>
+</ul>
+<p><code>filter_csv_by_reference_qid(csv_files, reference_csv, output_dir, verbose)</code></p>
+<ul>
+    <li><strong>Fonction</strong> : Filtre plusieurs CSV selon un CSV de référence</li>
+    <li><strong>Paramètres</strong> :<ul>
+        <li><code>csv_files</code> : Liste des fichiers CSV à filtrer</li>
+        <li><code>reference_csv</code> : CSV de référence pour les QID valides</li>
+        <li><code>output_dir</code> : Répertoire de sortie (optionnel)</li>
+        <li><code>verbose</code> : Mode verbeux pour les logs</li>
+    </ul>
+</li>
+<li><strong>Retour</strong> : Dictionnaire des DataFrames filtrés</li>
+</ul>
+<hr>
+
+<p><strong>Normalisation des données</strong></p>
+<p><strong>Dates</strong></p>
+<ul>
+    <li><strong>Suppression</strong> des préfixes +/- dans les dates candidats</li>
+    <li><strong>Remplacement</strong> des &quot;00&quot; par &quot;01&quot; dans les dates (YYYY-00-00 → YYYY-01-01)</li>
+    <li><strong>Ajustement</strong> automatique de la précision selon les substitutions</li>
+    <li><strong>Gestion</strong> des formats variables avec validation</li>
+</ul>
+
+<p><strong>Lieux</strong></p>
+<ul>
+    <li><strong>Nettoyage</strong> des chaînes avec suppression des espaces</li>
+    <li><strong>Filtrage</strong> des valeurs nulles ou vides</li>
+    <li><strong>Préservation</strong> des labels originaux</li>
+</ul>
+
+<p><strong>Labels</strong></p>
+<ul>
+    <li><strong>Priorité</strong> des langues : français &gt; multilingue &gt; anglais &gt; autre</li>
+    <li><strong>Fallback</strong> vers le premier label disponible si aucune priorité</li>
+</ul>
+<hr>
+
+<p><strong>Vérification et suivi des erreurs</strong></p>
+<p><strong>Traitement JSON</strong></p>
+<ul>
+    <li><strong>Validation</strong> de la structure des fichiers</li>
+    <li><strong>Compteurs</strong> détaillés des erreurs par type</li>
+    <li><strong>Continuation</strong> du traitement malgré les erreurs individuelles</li>
+</ul>
+
+<p><strong>Validation des données</strong></p>
+<ul>
+    <li><strong>Vérification</strong> de l&#39;existence des colonnes requises</li>
+    <li><strong>Conversion</strong> de types avec gestion des erreurs</li>
+    <li><strong>Rapports</strong> de diagnostic complets</li>
+</ul>
+
+<p><strong>Logs</strong></p>
+<ul>
+    <li><strong>Niveau</strong> WARNING par défaut</li>
+    <li><strong>Messages</strong> détaillés pour le débogage</li>
+    <li><strong>Statistiques</strong> de traitement en temps réel</li>
+</ul>
+
+<h4 id="b-calcul-des-flags-des-donnees-principales-pour-laffichage-dans-lapplication">b. Calcul des flags des données principales pour l&#39;affichage dans l&#39;application</h4>
+<p><a href="./Scripts/calcul_flag.py">Script d&#39;ajout des scores par comparaison des données principales</a> (dates et lieux de vie, nom)</p>
+<p>Système de score :</p>
+<table>
+    <thead>
+        <tr>
+            <th><strong>Critère</strong></th>
+            <th><strong>Score 1</strong></th>
+            <th><strong>Score 0</strong></th>
+            <th><strong>Score -1</strong></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Dates</strong></td>
+            <td>Match trouvé entre au moins une date candidat et une date TMS (selon précision minimale)</td>
+            <td>Données manquantes pour l&#39;un ou l&#39;autre</td>
+            <td>Aucun match trouvé</td>
+        </tr>
+        <tr>
+            <td><strong>Lieux</strong></td>
+            <td>Match exact ou inclusion partielle (un lieu contenu dans l&#39;autre) après normalisation</td>
+            <td>Données manquantes pour l&#39;un ou l&#39;autre</td>
+            <td>Aucune correspondance trouvée</td>
+        </tr>
+        <tr>
+            <td><strong>Noms</strong></td>
+            <td>Correspondance exacte OU mêmes mots dans ordre différent</td>
+            <td>Distance de Levenshtein ≤ 15% OU données manquantes</td>
+            <td>Distance de Levenshtein &gt; 15%</td>
+        </tr>
+    </tbody>
+</table>
+<ul>
+    <li><strong>Normalisation</strong> : Suppression des accents, conversion en minuscules</li>
+    <li><strong>Précision des dates</strong> : Comparaison selon le niveau le plus bas (siècle=7, décennie=8, année=9, mois=10, jour=11)</li>
+    <li><strong>Score total</strong> : Somme des 5 scores individuels (naissance date + mort date + naissance lieu + mort lieu + nom)</li>
+    <li><strong>Plage du score total</strong> : -5 à +5</li>
+</ul>
+<table>
+    <thead>
+        <tr>
+            <th>Paramètres</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>chemin_csv_table_tms</td>
+            <td>Chemin vers <code>table_TMS.csv</code></td>
+        </tr>
+        <tr>
+            <td>chemin_csv_table_evenement_tms</td>
+            <td>Chemin vers <code>Evenements_TMS.csv</code></td>
+        </tr>
+        <tr>
+            <td>chemin_csv_table_evenement_candidats</td>
+            <td>Chemin vers <code>\filtered_tables\Evenements_Candidats.csv</code></td>
+        </tr>
+        <tr>
+            <td>chemin_csv_table_lieux_candidats</td>
+            <td>Chemin vers <code>\filtered_tables\Lieux_Candidats.csv</code></td>
+        </tr>
+        <tr>
+            <td>chemin_csv_table_relation_tms_candidats</td>
+            <td>Chemin vers <code>\filtered_tables\Relations_TMS_Candidats.csv</code></td>
+        </tr>
+        <tr>
+            <td>chemin_csv_table_candidats</td>
+            <td>Chemin vers <code>table_Candidats.csv</code></td>
+        </tr>
+    </tbody>
+</table>
+<p>CSV de sortie <code>table_relation_tms_candidats_with_flags.csv</code> : </p>
+<table>
+    <thead>
+        <tr>
+            <th>Colonnes</th>
+            <th>Description</th>
+            <th>type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>TMS_ID</td>
+            <td>id d&#39;une entité TMS</td>
+            <td><code>int</code></td>
+        </tr>
+        <tr>
+            <td>QID</td>
+            <td>qid d&#39;un candidat Wikidata</td>
+            <td><code>str</code></td>
+        </tr>
+        <tr>
+            <td>Score_API</td>
+            <td>score renvoyé par l&#39;API de réconciliation fr Wikidata sur OpenRefine</td>
+            <td><code>int</code></td>
+        </tr>
+        <tr>
+            <td>score_flag_date_naissance</td>
+            <td>score de correspondance des dates de naissance TMS-Wikidata</td>
+            <td><code>int</code></td>
+        </tr>
+        <tr>
+            <td>score_flag_date_mort</td>
+            <td>score de correspondance des dates de mort TMS-Wikidata</td>
+            <td><code>int</code></td>
+        </tr>
+        <tr>
+            <td>score_flag_lieu_naissance</td>
+            <td>score de correspondance des lieux de naissance TMS-Wikidata</td>
+            <td><code>int</code></td>
+        </tr>
+        <tr>
+            <td>score_flag_lieu_mort</td>
+            <td>score de correspondance des lieux de mort TMS-Wikidata</td>
+            <td><code>int</code></td>
+        </tr>
+        <tr>
+            <td>score_flag_nom</td>
+            <td>score de correspondance des lieux de naissance TMS-Wikidata</td>
+            <td><code>int</code></td>
+        </tr>
+        <tr>
+            <td>score_flag</td>
+            <td>score total de correspondance TMS-Wikidata</td>
+            <td><code>int</code></td>
+        </tr>
+    </tbody>
+</table>
+
+<h3 id="4-creation-de-la-base-de-lapplication-dans-dbeaver">4. Création de la base de l&#39;application dans DBeaver</h3>
+<h4 id="a-creation-dun-schema-dedie-sur-le-serveur-postgre-du-serveur-lab">a. Création d&#39;un schéma dédié sur le serveur Postgre du serveur LAB</h4>
+<ul>
+    <li>Création du schéma <code>app_alignement</code> dans la base lab_sdpn</li>
+    <li><p>Création d&#39;un utilisateur dédié à l&#39;application pour lire et éditer le schéma <code>app_alignement</code></p>
+        <blockquote>
+            <p>username : aamo</p>
+            <p>password : AETKfS0065U1LAkRHhU7</p>
+        </blockquote>
+    </li>
+</ul>
+
+<h4 id="b-creation-des-tables-a-partir-des-csv">b. Création des tables à partir des csv</h4>
+<p>Voir le <a href="./Processus/Schemas/Modèle_base_app_alignement.png">modèle de la base SQL de l&#39;application</a></p>
+<h5 id="b1-import-des-csv-et-completion-des-tables-importees">b.1. Import des csv et complétion des tables importées</h5>
+<p><strong>Import des csv via l&#39;assistant d&#39;import de DBeaver</strong> :</p>
+<ul>
+    <li>Import source : à partir d&#39;un csv</li>
+    <li>Input file(s) : sélectionner le csv à importer pour la création d&#39;une table</li>
+    <li>Table mapping &gt; Configure : renommage des colonnes si nécessaire, typage des colonnes, Mapping = CREATE, Target = nom de la table créée.</li>
+</ul>
+
+<p><strong>Liste des csv à importer</strong></p>
+<ul>
+    <li>table_TMS.csv</li>
+    <li>table_candidat.csv</li>
+    <li>table_relation_tms_candidats_with_flags.csv</li>
+    <li>filtered_tables\Lieux_Candidats.csv</li>
+    <li>filtered_tables\Evenements_Candidats.csv</li>
+    <li>Evenements_TMS.csv</li>
+</ul>
+
+<p><strong>Création des clés primaires lorsqu&#39;elles font parties des colonnes préexistantes</strong> (voir les colonnes <code>PK</code> qui ne sont pas en italique dans le <a href="./Processus/Schemas/Modèle_base_app_alignement.png">modèle de la base</a>)</p>
+
+<p><strong>S&#39;assurer que les cellules importées &quot;vides&quot; soient bien <code>NULL</code></strong> : pour toute colonne importée partiellement vide (table_tms.statut_validation) il arrive que dbeaver importe les cellule vide avec des espaces ou autre à la place de <code>NULL</code>.
+    Requête SQL pour remédier au problème :</p>
+    <pre><code class="lang-sql"><span class="hljs-keyword">UPDATE</span> [ nom_de_la_table]
+        <span class="hljs-keyword">SET</span> nom_de_la_colonne = <span class="hljs-literal">NULL</span>
+        <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">TRIM</span>(nom_de_la_colonne ) = <span class="hljs-string">''</span>;
+    </code></pre>
+    <hr>
+    
+    <p><strong>Complétion des tables importées</strong> : créer les colonnes manquantes &quot;vides&quot; en typant (voir les colonnes en <em>italique</em> dans le <a href="./Processus/Schemas/Modèle_base_app_alignement.png">modèle de la base</a>)</p>
+    
+    <p><strong>Creation des clés primaires auto-incrémentées :</strong></p>
+    <ul>
+        <li>evenements_candidat.id_evenement</li>
+        <li>evenements_tms.id_evenement</li>
+        <li>lieux_candidats.id_lieu</li>
+        <li>table_candidat.id_candidat</li>
+        <li>relations_tms_candidats.id_match</li>
+    </ul>
+    
+    <p>Requête SQL de création des colonnes auto-incrémentées :</p>
+    <pre><code class="lang-sql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> [nom_de_la_table]
+        <span class="hljs-keyword">ADD</span> <span class="hljs-keyword">COLUMN</span> [nom_de_la_colonne] <span class="hljs-built_in">bigint</span> <span class="hljs-keyword">GENERATED</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">IDENTITY</span>;
+    </code></pre>
+    <p>Puis ajouter les contraintes <code>PRIMARY KEY</code>.</p>
+    
+    <h5 id="b2-creation-des-tables-utilisateur-et-historique">b.2. Création des tables utilisateur et historique</h5>
+    <p>Création des tables &quot;vides&quot; : utilisateurs et historique (voir les tables en <em>italique</em> dans le <a href="./Processus/Schemas/Modèle_base_app_alignement.png">modèle de la base</a>)</p>
+    <ul>
+        <li>Script SQL table utilisateurs :<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> app_alignement.utilisateurs (
+            email <span class="hljs-built_in">varchar</span>(<span class="hljs-number">320</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+            mdp <span class="hljs-built_in">text</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+            date_heure_creation <span class="hljs-keyword">timestamp</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">CURRENT_TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+            id_utilisateur <span class="hljs-built_in">int8</span> <span class="hljs-keyword">GENERATED</span> <span class="hljs-keyword">ALWAYS</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">IDENTITY</span>( <span class="hljs-keyword">MINVALUE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">NO</span> MAXVALUE <span class="hljs-keyword">START</span> <span class="hljs-number">0</span> <span class="hljs-keyword">NO</span> <span class="hljs-keyword">CYCLE</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+            preferences <span class="hljs-keyword">json</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">'["tous"]'</span>::<span class="hljs-keyword">json</span> <span class="hljs-literal">NULL</span>,
+            <span class="hljs-keyword">CONSTRAINT</span> utilisateurs_pkey PRIMARY <span class="hljs-keyword">KEY</span> (id_utilisateur)
+            );
+        </code></pre>
+    </li>
+    <li>Script SQL table historique :<pre><code class="lang-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> app_alignement.historique (
+        id_utilisateur int4 <span class="hljs-literal">NULL</span>,
+        id_match int4 <span class="hljs-literal">NULL</span>,
+        date_heure_action <span class="hljs-keyword">timestamp</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">CURRENT_TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+        <span class="hljs-string">"action"</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+        id_historique <span class="hljs-built_in">int8</span> <span class="hljs-keyword">GENERATED</span> <span class="hljs-keyword">ALWAYS</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">IDENTITY</span>( <span class="hljs-keyword">MINVALUE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">NO</span> MAXVALUE <span class="hljs-keyword">START</span> <span class="hljs-number">0</span> <span class="hljs-keyword">NO</span> <span class="hljs-keyword">CYCLE</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+        <span class="hljs-keyword">CONSTRAINT</span> historique_pkey PRIMARY <span class="hljs-keyword">KEY</span> (id_historique)
+        );
+    </code></pre>
+</li>
+</ul>
+
+<h5 id="b3-rajouter-les-contraintes-de-cles-etrangeres">b.3. Rajouter les contraintes de clés étrangères</h5>
+<table>
+    <thead>
+        <tr>
+            <th>Colonne d&#39;origine de la clé</th>
+            <th>Colonnes faisant référence à la clé</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>table_tms.tms_id</td>
+            <td>evenements_tms.tms_id ; relations_tms_candidats.tms_id</td>
+        </tr>
+        <tr>
+            <td>table_candidats.qid</td>
+            <td>evenements_candidats.qid ; lieux_candidats.qid ; relations_tms_candidats</td>
+        </tr>
+        <tr>
+            <td>relations_tms_candidats.id_match</td>
+            <td>historique.id_match</td>
+        </tr>
+        <tr>
+            <td>utilisateurs.id_utilisateur</td>
+            <td>historique.id_utilisateur</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 id="iii-creation-dune-table-des-donnees-tms-pour-laffichage-dans-lapplication">III. Création d&#39;une table des données TMS pour l&#39;affichage dans l&#39;application</h2>
+<p><strong>Pourquoi une table en dehors de la base principale ?</strong></p>
+<p>Permet de faciliter l&#39;appel des données (évite les requêtes complexes dans le code de l&#39;application et gain en rapidité d&#39;affichage). Permet aussi de pouvoir suivre l&#39;état de la donnée TMS au moment de l&#39;alignement et de garder une trace de tout changement potentiel.</p>
+<p>Spécificités de la table :</p>
+<ul>
+    <li>nom : <code>tms-constituent_constituent-description</code></li>
+    <li>schema : <code>main</code></li>
+    <li>droits de lecture pour l&#39;utilisateur aamo (<a href="#a-creation-dun-schema-dedie-sur-le-serveur-postgre-du-serveur-lab">voir création de l&#39;utilisateur</a>)</li>
+    <li><a href="./Processus/Schemas/Modèle_table_%20tms-constituent_constituent-description.png">modèle de la table</a></li>
+    <li>Agrégation des champs multivalués : colonnes type JSON</li>
+    <li>colonne <code>db_update</code> : TIMESTAMP de la dernière mise à jour des données de l&#39;entité</li>
+</ul>
+
+<h2 id="iv-inscription-des-alignements-sur-wikidata">IV. Inscription des alignements sur Wikidata</h2>
+<p>Voir partie basse du <a href="./Schemas/schema_global_processus_alignement.png">schema du processus</a> d&#39;alignement. </p>
+<h3 id="1-personnes-et-institutions-alignees-et-publiees-sur-le-repertoire-des-artistes-et-personnalites">1. Personnes et Institutions alignées et publiées sur le répertoire des artistes et personnalités</h3>
+<p>Pour inscrire les alignements des entités TMS vers un/des candidat.s Wikidata sur Wikidata il faut ajouter la propriété <a href="https://www.wikidata.org/wiki/Property:P2268">P2268</a> (identifiant Musée d&#39;Orsay d&#39;un artiste ou d&#39;une personnalité) avec pour valeur l&#39;ID TMS (<code>Constituents.ConstituentID</code>). La propriété fait référence directement au répertoire des artistes et personnalités publié par l&#39;EPMO en reconstituant l&#39;URL (<a href="https://www.musee-orsay.fr/fr/ressources/repertoire-artistes-personnalites/[id">https://www.musee-orsay.fr/fr/ressources/repertoire-artistes-personnalites/[id</a> tms]). Il faut alors s&#39;assurer, pour pouvoir ajouter la propriété P2268, que les TMS alignées y sont bien publiées. </p>
+<h4 id="a-recuperation-des-ids-tms-avec-le-statut_validation-aligne-et-du-ou-des-candidats-valides-une-ligne-par-paire-tms-candidat-distincte">a. Récupération des ids TMS avec le <code>statut_validation</code> &quot;aligne&quot; et du ou des candidats validés (une ligne par paire TMS-candidat distincte)</h4>
+<p>Requête à réaliser sur le serveur Postgre du serveur LAB, base lab_sdpn, schema app_alignement (base principale de l&#39;application)</p>
+<pre><code class="lang-sql">    <span class="hljs-keyword">select</span> rtc.tms_id, rtc.qid
+    <span class="hljs-keyword">from</span> app_alignement.relations_tms_candidats rtc 
+    <span class="hljs-keyword">inner</span> <span class="hljs-keyword">join</span> app_alignement.table_tms tt <span class="hljs-keyword">on</span> tt.tms_id = rtc.tms_id
+    <span class="hljs-keyword">inner</span> <span class="hljs-keyword">join</span> app_alignement.historique h <span class="hljs-keyword">on</span> h.id_match = rtc.id_match
+    <span class="hljs-keyword">where</span> tt.statut_validation = <span class="hljs-string">'aligne'</span>
+    <span class="hljs-keyword">and</span> h.action = <span class="hljs-string">'valide'</span>;
+</code></pre>
+<p>Exporter le résultat en csv</p>
+<h4 id="b-e-cuperation-des-ids-tms-publies-sur-le-repertoire">b. Récupération des ids TMS publiés sur le répertoire</h4>
+<p>Requête à réaliser sur le serveur PRA</p>
+<pre><code class="lang-sql">    <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> ufx.ID
+    <span class="hljs-keyword">FROM</span> UserFieldXrefs ufx
+    <span class="hljs-keyword">WHERE</span> ufx.ContextID = <span class="hljs-number">40</span>
+    <span class="hljs-keyword">AND</span> <span class="hljs-keyword">TRY_CAST</span>(FieldValue <span class="hljs-keyword">AS</span> <span class="hljs-built_in">int</span>) <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>
+    <span class="hljs-keyword">AND</span> <span class="hljs-keyword">TRY_CAST</span>(FieldValue <span class="hljs-keyword">AS</span> <span class="hljs-built_in">int</span>) != <span class="hljs-number">0</span>;
+</code></pre>
+<p>   Exporter le résultat en csv</p>
+<h4 id="c-exclusion-des-ids-tms-non-publies-sur-le-repertoire-et-formatage-pour-quickstatements">c. Exclusion des ids TMS non publiés sur le répertoire et formatage pour Quickstatements</h4>
+<p>Voir <a href="./Scripts/exclusion_formattage_quickstatements.py">script dédié</a></p>
+<p>Voir exemple de <a href="./quickstatements_p2268_20250731_110138.txt">fichier_sortie</a></p>
+<p>Voir exemple de <a href="./script_sql_statut_publie_20250731_110138.sql">script_sql_statut_publie</a></p>
+<table>
+    <thead>
+        <tr>
+            <th>Paramètres</th>
+            <th>Description</th>
+            <th>Format/Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>ids_alignes_candidats</td>
+            <td>Nom du fichier résultant de l&#39;export du schéma app_alignement</td>
+            <td><code>.csv</code></td>
+        </tr>
+        <tr>
+            <td>ids_repertoire</td>
+            <td>Nom du fichier résultant de l&#39;export du serveur PRA</td>
+            <td><code>.csv</code></td>
+        </tr>
+        <tr>
+            <td>fichier_sortie</td>
+            <td>Nom du fichier txt de sortie préformaté pour Quickstatements ( qid [TAB] P2268 [TAB] tms_id ). Le nom contient un horodatage de sa création pour tracer les différentes édition sur Wikidata.</td>
+            <td><code>.txt</code></td>
+        </tr>
+        <tr>
+            <td>script_sql_statut_publie</td>
+            <td>Nom du fichier sql contenant la requête de mise à jour du <code>statut_validation</code> des entités TMS concernée par l&#39;édition sur Wikidata Le nom contient un horodatage de sa création pour tracer les différentes édition sur Wikidata.</td>
+            <td><code>.sql</code></td>
+        </tr>
+    </tbody>
+</table>
+<h4 id="d-inscription-via-quickstatements">d. Inscription via Quickstatements</h4>
+<p>Depuis <a href="https://quickstatements.toolforge.org/index_old.html">l&#39;interface de Quickstatements</a> (ici, l&#39;ancienne version car je n&#39;avais pas de compte Wikidata agréé): </p>
+<ul>
+    <li>Se connecter avec un compte Wikidata valide (50 modifications et 4 jours d&#39;ancienneté)</li>
+    <li>Importer des commandes &gt; format version 1</li>
+    <li>Copier-coller le contenu du fichier de sortie après exclusion des entités non publiées et formatage dans l&#39;interface de saisie.</li>
+    <li><p>Lancer l&#39;édition de masse.</p>
+        <blockquote>
+            <p>Note : il est aussi possible de le faire depuis un csv avec en-tête.</p>
+            <p>Note : le service est parfois instable ce qui provoque des erreurs. Il est possible de relancer plusieurs fois le processus jusqu&#39;à ce qu&#39;il n&#39;y est plus d&#39;erreurs.</p>
+            <p>Note : il serait préférable de pouvoir utiliser la <a href="https://quickstatements.toolforge.org/#/user">V2 de Quickstatements</a> (actuelle) avec un compte agréé. Cette dernière fonctionne de la même manière (voir <a href="https://www.wikidata.org/wiki/Help:QuickStatements/fr">Aide:Quickstatements</a>).</p>
+            <p>Note : la v2 possède une API utilisable en script (génération d&#39;un token et specs dans l&#39;onglet utilisateur une fois connecté). Il serait envisageable sur le long terme, de créer un script automatisant l&#39;exclusion des entités non publiées, le formatage et l&#39;édition de masse.</p>
+        </blockquote>
+        <h4 id="e-mise-a-jour-du-statut_validation-des-entites-tms-concernees">e. Mise à jour du statut_validation des entités TMS concernées</h4>
+        <p>Executer le <a href="./script_sql_statut_publie_20250731_110138.sql">script SQL</a> généré par le script d&#39;exclusion et de formatage pour Quickstatements sur le schéma app_alignement, base lab_sdnp, serveur Postgre du serveur LAB. </p>
+    </li>
+</ul>
+<h3 id="2-personnes-et-institutions-non-alignees-et-publiees-sur-le-repertoire-des-artistes-et-personnalites">2. Personnes et institutions non-alignées et publiées sur le répertoire des artistes et personnalités</h3>
+<p> Les entités TMS peuvent obtenir un <code>statut_validation</code> = &#39;non_aligne&#39; pour deux raisons : </p>
+<ul>
+    <li>L&#39;API de réconciliation Wikidata FR, utilisée via OpenRefine, n&#39;a pas trouvé de candidat</li>
+    <li><p>Un utilisateur de 2AMO a refusé tous les candidats possibles pour l&#39;entité TMS en question</p>
+        <p>De ce fait, il est alors envisageable de créer un nouvel élément Wikidata pour renseigner cette entité TMS. Cela implique la définition de règles pour décider de la création de ces éléments ou non. Ces règles pourraient porter sur les thématiques suivantes :</p>
+    </li>
+    <li>La quantité minimale de données sur l&#39;entité TMS (dates de vie, lieux de vie, occupation etc.)</li>
+    <li>La qualité minimale des données (exactitude des renseignements etc.)</li>
+    <li><p>L&#39;utilité de l&#39;entité en interne (nombre de liens à la création, ancien personnel scientifique, rareté d&#39;information sur le web etc.)</p>
+        <p>Il faudra aussi décider des propriétés à renseigner, en plus de la <a href="https://www.wikidata.org/wiki/Property:P2268">P2268</a>. Pour cela, il est possible de se référer au <a href="./Mapping_TMS_wikidata.xlsx">mapping</a> des champs TMS vers Wikidata. Lorsque les champs ne sont pas colorés, cela signifie simplement que les propriétés n&#39;ont pas été utilisées pour le <a href="#2-projet-openrefine">processus de réconciliation avec l&#39;API</a>.</p>
+    </li>
+</ul>
+<h3 id="3-personnes-et-institutions-non-publiees-dans-le-repertoire-des-artistes-et-personnalites">3. Personnes et institutions non publiées dans le répertoire des artistes et personnalités</h3>
+<h4 id="a-les-entites-tms-alignees">a. Les entitées TMS alignées</h4>
+<p> Dans le cas d&#39;une entité TMS alignée mais non publiée sur le répertoire, il est envisageable d&#39;exploiter l&#39;information pour des usages internes. Le numéro Wikidata pourrait être ajouté dans la table <code>AltNum</code> (dédiée aux autres identifiants) afin de donner accès à l&#39;URL Wikidata au personnel scientifique du musée. </p>
+<h4 id="b-les-entites-tms-non-alignees">b. Les entitées TMS non alignées</h4>
+<p> Dans le cas ou l&#39;entité n&#39;est ni alignée, ni publiée dans le répertoire, l&#39;information de la non existence d&#39;un élément Wikidata correspondant reste enregistrée sur la base principale de l&#39;application (<code>statut validation</code> = &#39;non_aligne&#39;).</p>
+<h2 id="v-import-de-nouvelles-entites-tms-dans-la-base-de-2amo">V. Import de nouvelles entités TMS dans la base de 2AMO</h2>
+<p>Pour importer de nouvelles entités TMS dans la base de l&#39;application, il faudra reproduire les étapes d&#39;extraction des données du PRA, du projet OpenRefine, de la récupération des données des candidats, de l&#39;exclusion des candidats par écarts de dates, du calcul des scores<em>flag</em>* et intégrer les données dans les tables correspondantes.</p>
+
+<h2 id="liste-des-scripts-et-documents-cites">LISTE DES SCRIPTS ET DOCUMENTS CITES</h2>
+<h3 id="scripts">Scripts</h3>
+<ol>
+    <li>Script de sélection d&#39;entités tms au hasard et génération de la requête SQL pour extraction des données du PRA (<a href="./Scripts/sample_maker_v2.py">script</a>) (<a href="#1-extraction-des-donnees-depuis-le-serveur-pra-avec-des-requetes-sql">en savoir plus</a>)</li>
+    <li>Script de récupération des lignes avec erreurs à partir de l&#39;export csv OpenRefine (<a href="./Scripts/recup_batch_error.py">script</a>) (<a href="#d-export-du-projet-en-csv">en savoir plus</a>)</li>
+    <li>Script de fusion des différents exports Openrefine sans erreur (<a href="./Scripts/fusion_batch_error_et_premier_batch.py">script</a>) (<a href="#2-projet-openrefine">en savoir plus</a>)</li>
+    <li>Script de téléchargement des données des candidats (<a href="./Scripts/recuperation_json_asynchrone_candidats.py">script</a>) (<a href="#a-recuperation-des-donnees-wikidata-pour-chaque-candidat">en savoir plus</a>)</li>
+    <li>Script d&#39;extraction des dates des candidats (<a href="./Scripts/Extraction_dates_from_full_dumps.py">script</a>) (<a href="#a1-les-dates">en savoir plus</a>)</li>
+    <li>Script de téléchargement des labels et rangs des lieux de naissance et de mort (<a href="./Scripts/recuperation_json_lieux_only_batchs_sparql.py">script</a>) (<a href="#a2-les-lieux">en savoir plus</a>)</li>
+    <li>Script d&#39;extraction des labels et rangs des lieux de naissance et de mort (<a href="./Scripts/Extraction_lieux_et_rang_from_batch_sparql.py">script</a>) (<a href="#a2-les-lieux">en savoir plus</a>)</li>
+    <li>Script de comparaison des dates TMS-Wikidata et exclusion des candidats non alignables (<a href="./Scripts/comparaison_dates.py">script</a>) (<a href="#b-exclusion-des-candidats-ayant-des-dates-avec-un-ecart-de-de-100-ans-avec-celles-de-tms">en savoir plus</a>)</li>
+    <li>Script de création des csv de base des tables (<a href="./Scripts/construction_des_tables.py">script</a>) (<a href="#3-construction-des-tables">en savoir plus</a>)</li>
+    <li>Script d&#39;ajout des scores de comparaison des données principales (<a href="./Scripts/calcul_flag.py">script</a>) (<a href="#b-calcul-des-flags-des-donnees-principales-pour-laffichage-dans-lapplication">en savoir plus</a>)</li>
+    <li>Script d&#39;exclusion des entites TMS non publiées sur le répertoire, formatage des données pour Quickstatements et génération du .sql de mise à jour des <code>statut_validation</code> (<a href="./Scripts/exclusion_formattage_quickstatements.py">script</a>) (<a href="#1-personnes-et-institutions-alignees-et-publiees-sur-le-repertoire-des-artistes-et-personnalites">en savoir plus</a>)</li>
+</ol>
+
+<h3 id="documents">Documents</h3>
+<ol>
+    <li>Dossier Projet openrefine (<a href="./Projet_OpenRefine">voir le document</a>) (<a href="#2-projet-openrefine">en savoir plus</a>)</li>
+    <li>Mapping (<a href="./Mapping_TMS_wikidata.xlsx">voir le document</a>)</li>
+    <li>Specs de l&#39;API de réconciliation Wikidata (<a href="https://www.w3.org/community/reports/reconciliation/CG-FINAL-specs-0.2-20230410/">voir le document</a>)</li>
+    <li>Notes sur le fonctionnement de l&#39;API de réconciliation Wikidata (<a href="../Notes_et_observations/propriétés_api_reconciliation.docx">voir le document</a>)</li>
+    <li>Aperçu de l&#39;export final OpenRefine (<a href="alignements_sans_error_complet.csv">voir le document</a>)</li>
+    <li>Modèle de la base SQL de l&#39;application : app_alignement (<a href="./Processus/Schemas/Modèle_base_app_alignement.png">voir le document</a>) (<a href="#ii-construction-de-la-base-principale-postgre-pour-lapplication">en savoir plus</a>)</li>
+    <li>Modèle de la table <code>tms-constituent_constituent-description</code> (<a href="./Processus/Schemas/Modèle_table_%20tms-constituent_constituent-description.png">voir le document</a>) (<a href="#iii-creation-dune-table-des-donnees-tms-pour-laffichage-dans-lapplication">en savoir plus</a>)</li>
+    <li>Exemple de script SQL pour la mise à jour des <code>statut_validation</code> après edition des entites wikdiata alignees (<a href="./script_sql_statut_publie_20250731_110138.sql">voir document</a>) (<a href="#1-personnes-et-institutions-alignees-et-publiees-sur-le-repertoire-des-artistes-et-personnalites">en savoir plus</a>)</li>
+    <li>Page d&#39;aide FR de Quickstatements (<a href="https://www.wikidata.org/wiki/Help:QuickStatements/fr">voir le document</a>)</li>
+</ol>
+</body>
+</html>

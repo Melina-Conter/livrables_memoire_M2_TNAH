@@ -1,0 +1,819 @@
+<html>
+
+<head>
+    <style>
+        body {
+            font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #111;
+            background-color: #fbfbfb;
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-feature-settings: "kern" 1;
+            -moz-font-feature-settings: "kern" 1;
+            -o-font-feature-settings: "kern" 1;
+            font-feature-settings: "kern" 1;
+            font-kerning: normal;
+            padding: 30px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            body {
+                padding: 5px;
+            }
+
+            body>#content {
+                padding: 0px 20px 20px 20px !important;
+            }
+        }
+
+        body>#content {
+            margin: 0px;
+            max-width: 900px;
+            border: 1px solid #e1e4e8;
+            padding: 10px 40px;
+            padding-bottom: 20px;
+            border-radius: 2px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        summary {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        hr {
+            color: #bbb;
+            background-color: #bbb;
+            height: 1px;
+            flex: 0 1 auto;
+            margin: 1em 0;
+            padding: 0;
+            border: none;
+        }
+
+        .hljs-operator {
+            color: #868686;
+            /* There is a bug where the syntax highlighter would pick no color for e.g. `&&` symbols in the code samples. Let's overwrite this */
+        }
+
+
+        /**
+ * Links
+ */
+
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #0366d6;
+        }
+
+        a:hover {
+            color: #0366d6;
+            text-decoration: underline;
+        }
+
+        pre {
+            background-color: #f6f8fa;
+            border-radius: 3px;
+            font-size: 85%;
+            line-height: 1.45;
+            overflow: auto;
+            padding: 16px;
+        }
+
+
+        /**
+  * Code blocks
+  */
+
+        code {
+            background-color: rgba(27, 31, 35, .05);
+            border-radius: 3px;
+            font-size: 85%;
+            margin: 0;
+            word-wrap: break-word;
+            padding: .2em .4em;
+            font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+        }
+
+        pre>code {
+            background-color: transparent;
+            border: 0;
+            display: inline;
+            line-height: inherit;
+            margin: 0;
+            overflow: visible;
+            padding: 0;
+            word-wrap: normal;
+            font-size: 100%;
+        }
+
+
+        /**
+ * Blockquotes
+ */
+
+        blockquote {
+            margin-left: 30px;
+            margin-top: 0px;
+            margin-bottom: 16px;
+            border-left-width: 3px;
+            padding: 0 1em;
+            color: #828282;
+            border-left: 4px solid #e8e8e8;
+            padding-left: 15px;
+            font-size: 18px;
+            letter-spacing: -1px;
+            font-style: italic;
+        }
+
+        blockquote * {
+            font-style: normal !important;
+            letter-spacing: 0;
+            color: #6a737d !important;
+        }
+
+
+        /**
+ * Tables
+ */
+
+        table {
+            border-spacing: 2px;
+            display: block;
+            font-size: 14px;
+            overflow: auto;
+            width: 100%;
+            margin-bottom: 16px;
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 6px 13px;
+            border: 1px solid #dfe2e5;
+        }
+
+        th {
+            font-weight: 600;
+            padding: 6px 13px;
+            border: 1px solid #dfe2e5;
+        }
+
+        tr {
+            background-color: #fff;
+            border-top: 1px solid #c6cbd1;
+        }
+
+        table tr:nth-child(2n) {
+            background-color: #f6f8fa;
+        }
+
+
+        /**
+ * Others
+ */
+
+        img {
+            max-width: 100%;
+        }
+
+        p {
+            line-height: 24px;
+            font-weight: 400;
+            font-size: 16px;
+            color: #24292e;
+        }
+
+        ul {
+            margin-top: 0;
+        }
+
+        li {
+            color: #24292e;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        li+li {
+            margin-top: 0.25em;
+        }
+
+        * {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            color: #24292e;
+        }
+
+        a:visited {
+            color: #0366d6;
+        }
+
+        h1,
+        h2,
+        h3 {
+            border-bottom: 1px solid #eaecef;
+            color: #111;
+            /* Darker */
+        }
+
+        code>* {
+            font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="documentation-2amo">DOCUMENTATION 2AMO</h1>
+    <h1 id="table-des-matieres">TABLE DES MATIERES</h1>
+    <ul>
+        <li><a href="#documentation-2amo">DOCUMENTATION 2AMO</a></li>
+        <li><a href="#table-des-matieres">TABLE DES MATIERES</a></li>
+        <li><a href="#structure-de-lapplication">STRUCTURE DE L'APPLICATION</a></li>
+        <li><a href="#fonctionnalites-princpales">FONCTIONNALITES PRINCPALES</a>
+            <ul>
+                <li><a href="#1-interface-de-validation">1. Interface de validation</a>
+                    <ul>
+                        <li><a href="#route-validation">Route /validation</a></li>
+                        <li><a href="#route-validation-passer-int-tms_id">Route
+                                /validation/passer/&lt;int:tms_id&gt;</a></li>
+                        <li><a href="#route-validation-valider-int-tms_id">Route
+                                /validation/valider/&lt;int:tms_id&gt;</a>
+                        </li>
+                        <li><a href="#route-validation-refuser-tous-candidats-int-tms_id-">Route
+                                /validation/refuser-tous-candidats/&lt;int:tms_id&gt;</a></li>
+                        <li><a href="#fonction-get_entite_tms">Fonction get_entite_tms</a></li>
+                        <li><a href="#fonction-get_score_flag_color_class">Fonction get_score_flag_color_class</a></li>
+                        <li><a href="#fonction-get_score_flag_display_name">Fonction get_score_flag_display_name</a>
+                        </li>
+                        <li><a href="#fonction-preprocess_candidat_info">Fonction preprocess_candidat_info</a></li>
+                    </ul>
+                </li>
+                <li><a href="#2-historique">2. Historique</a>
+                    <ul>
+                        <li><a href="#route-historique">Route /historique</a></li>
+                        <li><a href="#route-annuler_action-int-tms_id-string-type_action-">Route /annuler_action/&lt;int:tms_id&gt;/&lt;string:type_action&gt;</a></li>
+                    </ul>
+                </li>
+                <li><a href="#3-preferences-utilisateur">3. Préférences utilisateur</a>
+                    <ul>
+                        <li><a href="#route-preferences">Route /preferences</a></li>
+                    </ul>
+                </li>
+                <li><a href="#4-gestion-utilisateur">4. Gestion utilisateur</a>
+                    <ul>
+                        <li><a href="#route-inscription">Route /inscription</a></li>
+                        <li><a href="#route-connexion">Route /connexion</a></li>
+                        <li><a href="#route-deconnexion">Route /deconnexion</a></li>
+                        <li><a href="#route-deconnexion_auto">Route /deconnexion_auto</a></li>
+                        <li><a href="#route-changer-mot-de-passe">Route /changer-mot-de-passe</a></li>
+                    </ul>
+                </li>
+                <li><a href="#5-accueil">5. Accueil</a>
+                    <ul>
+                        <li><a href="#route-">Route /</a></li>
+                    </ul>
+                </li>
+                <li><a href="#6-parametres-globaux-de-lapplication">6. Paramètres globaux de l'application</a></li>
+            </ul>
+        </li>
+        <li><a href="#deploiement-mise-a-jour">DEPLOIEMENT / MISE A JOUR</a></li>
+        <li><a href="#pistes-damelioration">PISTES D&#39;AMELIORATION</a>
+            <ul>
+                <li><a href="#1-utilisation-de-lapi-de-reconciliation-dans-lapplication">1. Utilisation de l&#39;API de réconciliation dans l&#39;application</a></li>
+                <li><a href="#2-rajout-dun-bouton-de-choix-et-validation-immediate-sur-chaque-candidat">2. Rajout d&#39;un bouton de choix et validation immédiate sur chaque candidat</a></li>
+                <li><a href="#3-utilisation-du-rang-des-dates-ou-lieux">3. Utilisation du rang des dates ou lieux</a></li>
+                <li><a href="#4-ajout-dune-fonctionnalite-de-signalement-pour-les-entites-tms">4. Ajout d&#39;une fonctionnalité de signalement pour les entités TMS</a></li>
+                <li><a href="#5-affichage-dune-entite-tms-specifique-a-partir-de-lurl">5. Affichage d&#39;une entité TMS spécifique à partir de l&#39;URL</a></li>
+                <li><a href="#6-rajout-dune-page-de-recherche-dune-entite-tms-specifique">6. Rajout d&#39;une page de recherche d&#39;une entité TMS spécifique</a></li>
+                <li><a href="#7-affichage-des-references-et-id-externes-pour-les-donnees-candidats">7. Affichage des références et id externes pour les données candidats</a></li>
+                <li><a href="#8-le-nombre-did-externes-comme-critere-daffichage-des-candidats">8. Le nombre d&#39;id externes comme critère d&#39;affichage des candidats</a></li>
+                <li><a href="#9-integration-des-match-preexistants-avant-lexistence-de-linterface-de-validation-dans-les-entites-selectionnables">9. Intégration des match préexistants avant l&#39;existence de l&#39;interface de validation dans les entités sélectionnables</a></li>
+            </ul>
+        </li>
+    </ul>
+
+
+    <h1 id="structure-de-lapplication">STRUCTURE DE L'APPLICATION</h1>
+    <pre><code><span class="hljs-regexp">/Dossier_de_l_application/</span>
+│
+├── run.py                     <span class="hljs-comment"># Point d'entrée de l'app (flask run)</span>
+├── requirements.txt           <span class="hljs-comment"># Dépendances Python</span>
+├── README.md                  <span class="hljs-comment"># Description du projet</span>
+├── .gitignore                 <span class="hljs-comment"># Fichiers/chemins à exclure de Git</span>
+│
+├── <span class="hljs-regexp">/app/</span>                      <span class="hljs-comment"># Dossier principal de l'application</span>
+│   ├── __init__.py  
+│   ├── app.py                 <span class="hljs-comment"># Initialisation de l'app Flask</span>
+│   ├── config.py              <span class="hljs-comment"># Configuration (dev, prod, etc.)</span>
+│   │
+│   ├── <span class="hljs-regexp">/static/</span>               <span class="hljs-comment"># Fichiers statiques (Bootstrap, CSS, JS...)</span>
+│   │   ├── __init__.py 
+│   │   ├── <span class="hljs-regexp">/css/</span>              <span class="hljs-comment"># styles CSS</span>
+|   │   │   └── bootstrap.min.css
+|   │   │   └── css_historique.css
+│   │   ├── <span class="hljs-regexp">/js/</span>               <span class="hljs-comment"># scripts JS</span>
+|   │   │   └── bootstrap.bundle.min.js
+│   │   └── <span class="hljs-regexp">/img/</span>               <span class="hljs-comment"># scripts JS</span>
+|   │       └── LOGO_MUSEE_ORSAY_H+<span class="hljs-number">25</span>MM_NORMAL_NOIR.png 
+│   │
+│   ├── <span class="hljs-regexp">/models/</span>               <span class="hljs-comment"># Modèles de données et de formulaires </span>
+│   │   ├── __init__.py        
+│   │   ├── formulaires.py     <span class="hljs-comment"># FlaskForms (classes pour les formulaires)</span>
+│   │   ├── donnees_PRA.py     <span class="hljs-comment"># Modèle de la table extraite du PRA (ORM)</span>
+│   │   └── base_principale.py <span class="hljs-comment"># Modèle de la base app_alignement (ORM)</span>
+│   │
+│   ├── <span class="hljs-regexp">/routes/</span>               <span class="hljs-comment"># Routes</span>
+│   │   ├── __init__.py        
+│   │   ├── generales.py       <span class="hljs-comment"># Routes générales (accueil, gestion utilisateurs, historique ...)</span>
+│   │   └── validation.py      <span class="hljs-comment"># Routes liées à la validation ou au refus des candidats</span>
+│   │
+│   └── <span class="hljs-regexp">/templates/</span>            <span class="hljs-comment"># Templates HTML (Jinja2)</span>
+│       ├── __init__.py
+│       │
+│       ├── <span class="hljs-regexp">/pages/</span>            <span class="hljs-comment"># Pages complètes</span>
+│       │   ├── __init__.py
+│       │   ├── base.html      <span class="hljs-comment"># Base de tous les fichiers html de l'application</span>
+│       │   ├── accueil.html      <span class="hljs-comment"># Page d'accueil</span>
+│       │   ├── validation.html   <span class="hljs-comment"># Interface de validation</span>
+│       │   ├── historique.html   <span class="hljs-comment"># Historique de l'utilisateur</span>
+│       │   └── preferences.html  <span class="hljs-comment"># Paramètre de préférence de l'utilisateur</span>
+│       │
+│       └── <span class="hljs-regexp">/partials/</span>         <span class="hljs-comment"># Composants HTML réutilisables</span>
+│           ├── __init__.py
+│           ├── head.html      
+│           ├── navbar.html
+│           ├── footer.html
+│           ├── script_de_deconnexion_auto.html <span class="hljs-comment"># script js de déconnexion automatique</span>
+│           └── <span class="hljs-regexp">/formulaires/</span>  <span class="hljs-comment"># Templates de formulaires</span>
+│               ├── __init__.py
+│               ├── connexion.html
+│               ├── inscription.html
+│               └── changermdp.html
+</code></pre>
+    <h1 id="fonctionnalites-princpales">FONCTIONNALITES PRINCPALES</h1>
+    <h2 id="1-interface-de-validation">1. Interface de validation</h2>
+    <h3 id="route-validation">Route /validation</h3>
+    <p>Fonctionnement :</p>
+    <ul>
+        <li>L'utilisateur doit être connecté</li>
+        <li>Sélection de l'entité TMS (id_tms)</li>
+        <li>Récupération des candidats correspondants (qid)</li>
+        <li>Détermination des couleurs d'affichage des flags pour les données des candidats</li>
+        <li>Requête SPARQL Wikidata en fonction du type de chaque candidats (Q5 = humain ou autre)</li>
+        <li>Prétraitement des données des candidats</li>
+        <li>Tri des candidats par score d'API décroissant</li>
+    </ul>
+    <p>Retourne : </p>
+    <ul>
+        <li>render_template de la page validation.html</li>
+        <li>donnees (Dict) : données de l'entité TMS sélectionnée pour l'interface de validation</li>
+        <li>infos_candidats (Dict) : données du ou des candidats Wikidata correspondant à l'entité TMS sélectionnée
+        </li>
+    </ul>
+    <h3 id="route-validation-passer-int-tms_id">Route /validation/passer/&lt;int:tms_id&gt;
+    </h3>
+    <p>Provoqué par : </p>
+    <p><img alt="bouton passer" src="./illustrations_documentation_2AMO/passer.PNG" /></p>
+    <p>Fonctionnement : </p>
+    <ul>
+        <li>L'utilisateur doit être connecté</li>
+        <li>Passe une entité TMS et enregistre les candidats passés dans l'historique</li>
+        <li>Déverrouille l'entité TMS concernée</li>
+    </ul>
+    <p>Méthodes :</p>
+    <ul>
+        <li>POST</li>
+    </ul>
+    <p>Args :</p>
+    <ul>
+        <li>tms_id (int): Identifiant de l'entité TMS à passer</li>
+    </ul>
+    <p>Retourne:</p>
+    <ul>
+        <li>Response: Redirection vers la page de validation avec message flash</li>
+    </ul>
+    <h3 id="route-validation-valider-int-tms_id">Route /validation/valider/&lt;int:tms_id&gt;
+    </h3>
+    <p>Provoqué par :</p>
+    <p><img alt="bouton valider candidats" src="./illustrations_documentation_2AMO/Valider.PNG" /></p>
+    <p>Fonctionnement : </p>
+    <ul>
+        <li>L'utilisateur doit être connecté</li>
+        <li>Valide les candidats sélectionnés pour une entité TMS et refuse les non sélectionnés</li>
+        <li>Enregistre les refus et validations dans l'historique</li>
+        <li>Ajoute un <code>statut_validation</code> "aligne"</li>
+        <li>Déverrouille l'entité TMS concernée</li>
+    </ul>
+    <p>Méthodes :</p>
+    <ul>
+        <li>POST</li>
+    </ul>
+    <p>Args :</p>
+    <ul>
+        <li>tms_id (int): Identifiant de l'entité TMS</li>
+    </ul>
+    <p>Retourne :</p>
+    <ul>
+        <li>Response: Redirection vers la page de validation avec message flash</li>
+    </ul>
+    <h3 id="route-validation-refuser-tous-candidats-int-tms_id-">Route
+        /validation/refuser-tous-candidats/&lt;int:tms_id&gt;
+    </h3>
+    <p>Provoqué par :</p>
+    <p><img alt="bouton refuser tous candidats" src="./illustrations_documentation_2AMO/refuser.png" /></p>
+    <p>Fonctionnement : </p>
+    <ul>
+        <li>L'utilisateur doit être connecté</li>
+        <li>Refuse tous les candidats pour une entité TMS</li>
+        <li>Enregistre les refus dans l'historique</li>
+        <li>Ajoute un <code>statut_validation</code> "non_aligne"</li>
+        <li>Déverrouille l'entité TMS concernée</li>
+    </ul>
+    <p>Méthodes :</p>
+    <ul>
+        <li>POST</li>
+    </ul>
+    <p>Args :</p>
+    <ul>
+        <li>tms_id (int): Identifiant de l'entité TMS</li>
+    </ul>
+    <p>Retourne :</p>
+    <ul>
+        <li>Response: Redirection vers la page de validation avec message flash</li>
+    </ul>
+    <h3 id="fonction-get_entite_tms">Fonction get_entite_tms</h3>
+    <p>Fonctionnement :</p>
+    <ul>
+        <li>Efface les verrous obsolètes sur les entités TMS</li>
+        <li>Récupère la première entité TMS :<ul>
+                <li>dont le statut de validation n'est ni "match_communaute", ni "non_aligne",
+                    ni "aligne" et n'a pas été passée par l'utilisateur connecté</li>
+                <li>qui n'est pas verrouillée par un autre utilisateur</li>
+                <li>qui respecte les préférences de domaines de l'utilisateur</li>
+                <li>qui a un ou des candidats ayant des score_flag élevés, en priorisant les entités ayant des candidats
+                    avec un score_flag de 5, puis 4, etc., jusqu'à -5</li>
+                <li>verrouillage de l'entité tms sélectionnée</li>
+            </ul>
+        </li>
+    </ul>
+    <p>Retourne :</p>
+    <ul>
+        <li>entité (TableTMS) : entité choisi pour l'affichage dans l'interface de validation</li>
+    </ul>
+    <h3 id="fonction-get_score_flag_color_class">Fonction get_score_flag_color_class</h3>
+    <p>Permet d'afficher le taux de ressemblance d'une donnée candidat par apport aux données TMS : </p>
+    <p><img alt="couleurs flags" src="./illustrations_documentation_2AMO/flags.PNG" /></p>
+    <p>Fonctionnement : renvoie la classe CSS bootstrap correspondant à un score<em>flag</em>*</p>
+    <p>Args :</p>
+    <ul>
+        <li>score_value (int) : valeur du score<em>flag</em>*</li>
+    </ul>
+    <p>Retourne : </p>
+    <ul>
+        <li>(str) : Classe CSS Bootstrap</li>
+    </ul>
+    <h3 id="fonction-get_score_flag_display_name">Fonction get_score_flag_display_name</h3>
+    <p>Fonctionnement : renvoie la catégorisation pour chaque score<em>flag</em>*</p>
+    <p>Args :</p>
+    <ul>
+        <li>field_name (str) : nom complet de la colonne score<em>flag</em>*</li>
+    </ul>
+    <p>Retourne : </p>
+    <ul>
+        <li>(str) : catégorisation formatée pour l'affichage</li>
+    </ul>
+    <h3 id="fonction-preprocess_candidat_info">Fonction preprocess_candidat_info</h3>
+    <p>Fonctionnement :</p>
+    <ul>
+        <li>Prétraites les données des candidats pour l'affichage dans l'interface de validation :<ul>
+                <li>Si le candidats est un être humain :<ul>
+                        <li>Dates et lieux de naissance et de mort</li>
+                        <li>Occupations</li>
+                        <li>type pour l'affichage dans l'interface</li>
+                        <li>relations</li>
+                        <li>autres labels</li>
+                        <li>les différents scores de RelationsTmsCandidats</li>
+                    </ul>
+                </li>
+                <li>Si le candidat n'est pas un être humain :<ul>
+                        <li>type pour l'affichage dans l'interface</li>
+                        <li>dates de fondation et de dissolution</li>
+                        <li>entités l'ayant précédé ou lui ayant succédé dans le temps</li>
+                        <li>pays d'appartenance</li>
+                        <li>lieux du siège de l'organisation</li>
+                        <li>les différents types du candidats</li>
+                        <li>description</li>
+                        <li>autres labels </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p>Args : </p>
+    <ul>
+        <li>candidat_raw (dict) : Données brutes du candidat</li>
+        <li>scores_info (dict) : Informations de scoring depuis RelationsTMSCandidats</li>
+        <li>type_candidat (str) : Type du candidat ('Q5' pour personne ou autre)</li>
+    </ul>
+    <p>Retourne : </p>
+    <ul>
+        <li>candidat (dict) : Données prétraitées du candidat</li>
+    </ul>
+    <h2 id="2-historique">2. Historique</h2>
+    <h3 id="route-historique">Route /historique</h3>
+    <p>Fonctionnement : </p>
+    <ul>
+        <li>L'utilisateur doit être connecté</li>
+        <li>Pour chaque action de l'utilisateur dans l'historique :<ul>
+                <li>regroupement des actions par tms ID</li>
+                <li>Récupération des données :<ul>
+                        <li>le timestamp de l'action tronqué des secondes et microsecondes</li>
+                        <li>l'id TMS</li>
+                        <li>le displayname de l'entité tms</li>
+                        <li>la liste et le nmobre de candidats validés</li>
+                        <li>le nombre de candidats refusés</li>
+                        <li>le type d'action</li>
+                    </ul>
+                </li>
+                <li>Si c'est une action "passe" : ajout du nombre de candidats passés</li>
+            </ul>
+        </li>
+        <li>tri des actions par timestamp décroissants</li>
+        <li>gestion de la pagination de l'historique avec la classe CustomPagination</li>
+    </ul>
+    <p>Retourne :</p>
+    <ul>
+        <li>render_template de la page historique.html</li>
+        <li>actions(list) : liste des actions de l'utilisateur avec leurs données</li>
+        <li>pagination (CustomPage) : paramètres de pagination</li>
+    </ul>
+    <h3 id="route-annuler_action-int-tms_id-string-type_action-">Route
+        /annuler_action/&lt;int:tms_id&gt;/&lt;string:type_action&gt;
+    </h3>
+    <p>Provoqué par :</p>
+    <p><img alt="bouton annuler" src="./illustrations_documentation_2AMO/annuler.png" /></p>
+    <p>Fonctionnement : </p>
+    <ul>
+        <li>l'utilisateur doit être connecté</li>
+        <li>Annule une action de l'utilisateur pour une entité TMS et un type d'actions donnés :<ul>
+                <li>supprime les lignes concernées dans l'historique </li>
+                <li>si l'action valide/refuse des candidats : supprime le statut de validation de l'entité tms
+                    dans <code>TableTMS</code></li>
+            </ul>
+        </li>
+    </ul>
+    <p>Méthodes :</p>
+    <ul>
+        <li>POST</li>
+    </ul>
+    <p>Args : </p>
+    <ul>
+        <li>id_tms (int) : ID de l'entité TMS concernée.</li>
+        <li>type_action (str) : Type d'action à annuler (ex: "passe" ou "valide_refuse".)</li>
+    </ul>
+    <p>Retourne :</p>
+    <ul>
+        <li>Si annulé avec succès : <ul>
+                <li>Redirect : vers la page de validation avec message flash de succès et l'id de l'entité TMS
+                    de l'action annulée</li>
+            </ul>
+        </li>
+        <li>Sinon : <ul>
+                <li>Redirect : vers la page historique avec message flash d'erreur.</li>
+            </ul>
+        </li>
+    </ul>
+    <h2 id="3-preferences-utilisateur">3. Préférences utilisateur</h2>
+    <h3 id="route-preferences">Route /preferences</h3>
+    <p>Fait fonctionner : </p>
+    <p><img alt="preferences" src="./illustrations_documentation_2AMO/preferences.PNG" /></p>
+    <p>Fonctionnement : </p>
+    <ul>
+        <li>L'utilisateur doit être connecté</li>
+        <li>Enregistre les préférences de domaines documentaires de l'utilisateur connecté à partir du formulaire
+            Preferences vers la colonne <code>preferences</code> de Utilisateurs.<blockquote>
+                <p>Par défaut, à la création d'un compte, l'utilisateur a pour préférence "tous".</p>
+            </blockquote>
+        </li>
+        <li>Récupère des statistiques d'avancement du travail d'alignement par domaines</li>
+    </ul>
+    <p>Méthodes :</p>
+    <ul>
+        <li>POST</li>
+        <li>GET</li>
+    </ul>
+    <p>Retourne :</p>
+    <ul>
+        <li>render_template pour la page preferences.html</li>
+        <li>form (Preferences) : paramètres du formulaire</li>
+        <li>stats_domaines (List) : statistiques de l'avancement du chantier d'alignement par nom de domaines
+            documentaires</li>
+        <li>Redirect : vers la page preference.html avec message flash de succès</li>
+        <li>Si Erreur : message flash d'erreur</li>
+    </ul>
+    <h2 id="4-gestion-utilisateur">4. Gestion utilisateur</h2>
+    <h3 id="route-inscription">Route /inscription</h3>
+    <p>Fait fonctionner :</p>
+    <p><img alt="inscription" src="./illustrations_documentation_2AMO/s'inscrire.PNG" /></p>
+    <p>Fonctionnement :</p>
+    <ul>
+        <li>Récupère les données du formulaire AjoutUtilisateur</li>
+        <li>Vérifie que l'utilisateur n'existe pas déjà</li>
+        <li>Enregistre un nouvel utilisateur dans la table Utilisateur</li>
+    </ul>
+    <p>Méthodes :</p>
+    <ul>
+        <li>GET</li>
+        <li>POST</li>
+    </ul>
+    <p>Args :</p>
+    <ul>
+        <li>Redirect : vers la page d'accueil si l'inscription est un succès (message flash)</li>
+        <li>render_template : inscription.html (avec le formulaire)</li>
+    </ul>
+    <h3 id="route-connexion">Route /connexion</h3>
+    <p>Fait fonctionner : </p>
+    <p><img alt="connexion" src="./illustrations_documentation_2AMO/connexion.PNG" /></p>
+    <p>Fonctionnement : </p>
+    <ul>
+        <li>vérification du statut de connexion de l'utilisateur</li>
+        <li>vérifie si l'utilisateur est déjà inscrit</li>
+        <li>vérifie la validité de l'adresse mail et du mot de passe</li>
+        <li>après validation : connexion automatique du l'utilisateur</li>
+    </ul>
+    <p>Méthodes : </p>
+    <ul>
+        <li>GET</li>
+        <li>POST</li>
+    </ul>
+    <p>Retourne : </p>
+    <ul>
+        <li>Redirect : vers l'interface de validation encas de succès</li>
+        <li>render_template : connexion.html (et en cas d'erreur avec messages flash)</li>
+    </ul>
+    <h3 id="route-deconnexion">Route /deconnexion</h3>
+    <p>Fonctionnement : déconnecte l'utilisateur s'il est connecté.</p>
+    <p>Retourne :</p>
+    <ul>
+        <li>werkzeug.wrappers.Response: Une redirection vers la page d'accueil (avec message de succès flash)</li>
+    </ul>
+    <h3 id="route-deconnexion_auto">Route /deconnexion_auto</h3>
+    <p>Fonctionnement : déconnecte l'utilisateur actuel de manière silencieuse au bout d'un certain temps
+        d'inactivité (<a href="#6-parametres-globaux-de-lapplication">voir variables
+            PERMANENT_SESSION_LIFETIME_MINUTES et SESSION_PERMANENT</a>)</p>
+    <p>Returns :</p>
+    <ul>
+        <li>str: Une réponse vide avec le code de statut 204 (No Content).</li>
+    </ul>
+    <h3 id="route-changer-mot-de-passe">Route /changer-mot-de-passe</h3>
+    <p>Fait fonctionner :</p>
+    <p><img alt="changermdp" src="./illustrations_documentation_2AMO/changermdp.PNG" /></p>
+    <p>Fonctionnement : permet de changer de mot de passe que l'utilisateur soit connecté ou non (en cas d'oubli
+        par exemple)</p>
+    <p>Méthodes : </p>
+    <ul>
+        <li>GET</li>
+        <li>POST</li>
+    </ul>
+    <p>Retourne : </p>
+    <ul>
+        <li>render_template : changemdp.html (message d'erreur flash si erreur)</li>
+        <li>redirect : vers l'interface de validation avec message flash de confirmation </li>
+    </ul>
+    <h2 id="5-accueil">5. Accueil</h2>
+    <h3 id="route-">Route /</h3>
+    <p>Fonctionnement : affiche la page d'accueil de l'application</p>
+    <p>Retourne :</p>
+    <ul>
+        <li>render_template : accueil.html</li>
+    </ul>
+    <h2 id="6-parametres-globaux-de-lapplication">6. Paramètres globaux de l'application</h2>
+    <p>Les variables globales de l'application sont stockées dans le fichier <code>.env</code>.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom de la variable</th>
+                <th>description</th>
+                <th>type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>SQLALCHEMY_DATABASE_URI</td>
+                <td>Chemin vers le schema <code>app_alignement</code> (base SQL de l'application) sur le serveur
+                    Postgre du serveur LAB</td>
+                <td><code>str</code></td>
+            </tr>
+            <tr>
+                <td>SQLALCHEMY_BINDS_DONNEES_TMS</td>
+                <td>Chemin vers la table <code>tms-constituent_constituent-description</code>, schema <code>main</code>
+                    (données TMS extraites du serveur PRA) sur le serveur Pstgre du serveur LAB</td>
+                <td><code>str</code></td>
+            </tr>
+            <tr>
+                <td>DEBUG</td>
+                <td>Activer et désactiver le Debug Mode de Flask</td>
+                <td><code>bool</code></td>
+            </tr>
+            <tr>
+                <td>SECRET_KEY</td>
+                <td>Clé secrète d'encryptage et de décrytpage des mots de passe</td>
+                <td><code>str</code></td>
+            </tr>
+            <tr>
+                <td>WTF_CSRF_ENABLE</td>
+                <td>Activation ou désactivation dui CSRF pour les FlaskForm</td>
+                <td><code>bool</code></td>
+            </tr>
+            <tr>
+                <td>ACTIONS_PER_PAGE</td>
+                <td>nombre d'actions par pages dans la page /historique</td>
+                <td><code>int</code></td>
+            </tr>
+            <tr>
+                <td>TIMER_INACTIVITE_MINUTES</td>
+                <td>Nombre de minutes avant le déverouillage d'une entité TMS et la redirection automatique vers
+                    l'acceuil</td>
+                <td><code>int</code></td>
+            </tr>
+            <tr>
+                <td>PERMANENT_SESSION_LIFETIME_MINUTES</td>
+                <td>Nombre de minutes avant la déconnexion automatique et silencieuse</td>
+                <td><code>int</code></td>
+            </tr>
+            <tr>
+                <td>SESSION_PERMANENT</td>
+                <td>Activer ou désactiver la déconnexion automatique silencieuse</td>
+                <td><code>bool</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <h1 id="deploiement-mise-a-jour">DEPLOIEMENT / MISE A JOUR</h1>
+    <p>L'application est déployée sur le serveur LAB, via un serveur Apache à l'URL <a
+            href="https://mo-ux-sdpn:3001">https://mo-ux-sdpn:3001</a>.
+        Voir le script de déploiement[] qui permet de mettre à jour l'application depuis la branche principale du <a
+            href="https://github.com/Melina-Conter/app_alignements_orsay">dépôt Github</a>.</p>
+    <blockquote>
+        <p>Note : le dépôt Github est en privé pour des raisons de sécurité (en particulier les variables du .env qui
+            contient des identifiants pour le serveur Postgre du serveur LAB). Tout compte qui n'aura pas été ajouté
+            en tant que collaborateur ne pourra pas y avoir accès.</p>
+    </blockquote>
+    <h1 id="pistes-damelioration">PISTES D&#39;AMELIORATION</h1>
+    <h2 id="1-utilisation-de-lapi-de-reconciliation-dans-lapplication">1. Utilisation de l&#39;API de réconciliation dans l&#39;application</h2>
+    <p>   Permettrait l&#39;utilisation directe du score général de l&#39;API et du score par propriété afin de générer les flags et décider de l&#39;ordre d&#39;affichage des candidats.</p>
+    <blockquote>
+    <p>Note : le calcul des flags devrait alors se faire à la volée. Le choix de priorisation pour les entités TMS à l&#39;affichage devra être revu car calculé en fonction des flags déjà présents dans la base principale.</p>
+    </blockquote>
+    <h2 id="2-rajout-dun-bouton-de-choix-et-validation-immediate-sur-chaque-candidat">2. Rajout d&#39;un bouton de choix et validation immédiate sur chaque candidat</h2>
+    <p>   Permettrait d&#39;augmenter la cadence de validation, surtout pour les utilisateurs réguliers. </p>
+    <blockquote>
+    <p>Note : il faudrait alors rajouter un bouton actionnant la route <code>/validation/valider/&lt;int:tms_id&gt;</code> pour chaque candidat, en-dessous ou à côté de la case à cocher pour choisir un candidat.</p>
+    </blockquote>
+    <h2 id="3-utilisation-du-rang-des-dates-ou-lieux">3. Utilisation du rang des dates ou lieux</h2>
+    <p>   Il a été décidé de garder, dans la base principale de l&#39;application, les rangs Wikidata des dates et lieux des candidats. Nous n&#39;avons pour l&#39;instant pas utilisé ces rangs dans le processus de validation pour les raisons suivantes : </p>
+    <p>   Les rangs sont généralement présents lorsque plusieurs valeurs pour une même propriété Wikidata existent (ex : plusieurs dates de morts, plusieurs lieux de naissance etc.). Dans ces cas-là, il est donc assez courant qu&#39;une date de rang <code>deprecated</code> ne soit pas certes plus la date considérée comme valide scientifiquement aujourd&#39;hui. Cependant, il est tout à fait possible que la dtae en question ait été utilisée sur une longue période avant d&#39;être réfutée ce qui a pour conséquence sa présence en tant qu&#39;information dans bon nombre de bases de données ou de sources d&#39;autorité, même aujourd&#39;hui. Cela peut-être le cas des dates et lieux pour des entités TMS d&#39;Orsay. Il est donc important de conserver, dans le processus d&#39;alignement et dans l&#39;application à l&#39;affichage, ces dates et lieux même lorsque leur rang est <code>deprecated</code> afin de pouvoir comparer le plus justement possible les données, même si elles ne sont plus à jour.</p>
+    <p>   Utilisation possible : </p>
+    <ul>
+    <li>Affichage dans l&#39;interface de validation du rang lorsqu&#39;il y a plusiuers valeurs pour une même propriété si les rangs sont <code>deprecated</code> ou <code>prefered</code>. Cela permettrait de savoir si une donnée mérite d&#39;être mis à jour ou non sur TMS par la suite par exemple.<blockquote>
+    <p>Note : il faudra alors trouver une manière d&#39;afficher le rang qui ne rende pas l&#39;interface utilisateur confuse (ex : pas par la couleur car pourrait rendre l&#39;affichage des flags moins clairs.)</p>
+    </blockquote>
+    </li>
+    </ul>
+    <h2 id="4-ajout-dune-fonctionnalite-de-signalement-pour-les-entites-tms">4. Ajout d&#39;une fonctionnalité de signalement pour les entités TMS</h2>
+    <p>   Bien que cela changerait quelque peu l&#39;utilité première de l&#39;application, il serait envisageable d&#39;ajouter une menu déroulant ou un autre moyen de signaler une anomalie, un manque de données ou tout autre problème concernant l&#39;entité TMS en cours d&#39;alignement. En effet, l&#39;interface étant conçue pour visionner chaque entité une à une par le personnel scientifique de l&#39;institution, le porcessus de validation pourrait être l&#39;occasion de signaler de façon détaillée les anomalies éventuelles dans TMS. </p>
+    <blockquote>
+    <p>Note : Cela donnerait lieu à plusieurrs modifications</p>
+    <ul>
+    <li>Modification de la base de l&#39;application pour stocker les signalements (probablement création d&#39;une table dédiée, reliée par les clés étrangères id_tms et id_utilisateur)</li>
+    <li>Modification de la page de l&#39;interface de validation afin d&#39;y ajouter une manière de signaler l&#39;entité TMS sans perturber la lisibilité de la page.</li>
+    <li>Création d&#39;un requête SQL / d&#39;une procédure pour faire remonter les signalements aux gestionnaires de la base de donnée</li>
+    </ul>
+    </blockquote>
+    <h2 id="5-affichage-dune-entite-tms-specifique-a-partir-de-lurl">5. Affichage d&#39;une entité TMS spécifique à partir de l&#39;URL</h2>
+    <p>   Permettrait d&#39;outre-passer le fait que l&#39;utilisateur ait passé une entité sans avoir à annuler l&#39;action manuellement depuis l&#39;historique. Permettrait également de travailler sur une entité donnée. Cette fonctionnalité pourrait être d&#39;autnat plus pratique lorsque qu&#39;un import de masse aura été réalisé à l&#39;échelle de toutes les entités personnes et institutions de la base TMS d&#39;Orsay. Il faudra alors modifier la route <code>/validation</code> come ceci :</p>
+    <ul>
+    <li>route : <code>/validation/&lt;int:tms_id&gt;</code></li>
+    <li>S&#39;il y a un id_tms dans la route, sélectionner celui-ci et récupérer les candidats associés, effacement du <code>statut_validation</code>, effacement des actions liées dans l&#39;historique à l&#39;entité tms. Sinon procéder normalement avec <code>get_tms_id</code></li>
+    <li>Message d&#39;erreur si l&#39;entité est verrouillée par un autre utilisateur, si l&#39;entité n&#39;existe pas / si elle n&#39;est pas encore importée dans la base principale. </li>
+    <li>Warning si l&#39;entité avait un <code>statut_validation</code>= &quot;aligne&quot; qui indique avec quel.s candidat.s l&#39;alignement avait été validé.</li>
+    </ul>
+    <h2 id="6-rajout-dune-page-de-recherche-dune-entite-tms-specifique">6. Rajout d&#39;une page de recherche d&#39;une entité TMS spécifique</h2>
+    <p>   Permettrait la recherche d&#39;un entité TMS via son <code>displayname</code> via une recherche plein texte.
+    Renverrait une liste des résultats possibles avec un bouton par entité possible qui afficherait l&#39;entité dans l&#39;interface de validation selon le même principe que <code>/validation/&lt;int:tms_id&gt;</code> cité dans la proposition précédente. </p>
+    <h2 id="7-affichage-des-references-et-id-externes-pour-les-donnees-candidats">7. Affichage des références et id externes pour les données candidats</h2>
+    <p>   Références pour chaque valeur de chaque propriété de chaque candidat : </p>
+    <p>   Cela présenterait un défi de lisibilité dans l&#39;interface de validation mais il serait envisageable d&#39;afficher la source de certaines données importantes afin de que la personnel scientifique puisse évaluer leur fiabilité sans passer par la page Wikidata du candidat. Cela impliquerait probablement une sélection des ources à afficher en amont car il arrive régulièrement que le nombre de références pour une valeur soit important. </p>
+    <p>   IDs Externes pour chaque candidat :</p>
+    <p>   Cette solution présente moins de diffculté en terme de lisibilité pour l&#39;interface de validation. Tout comme l&#39;affichage des références, il faudra tout de même réalser une sélection des types d&#39;ids souhaités à l&#39;affichage afin de ne pas trop encombrer l&#39;interface. Il serait préféreable de les afficher sous forme de lien avec le nom de la source.</p>
+    <h2 id="8-le-nombre-did-externes-comme-critere-daffichage-des-candidats">8. Le nombre d&#39;id externes comme critère d&#39;affichage des candidats</h2>
+    <p>   Le nombre d&#39;ids externes d&#39;un candidat pourrait être utilisé comme critère pour faire remonter un candidat dans l&#39;ordre d&#39;affiche lorqu&#39;il y en a plusieurs avec un score d&#39;API / des score_flag similaires. Cette donnée est déjà stockée dans la base principale dans la colonne <code>nb_id_externes</code>. </p>
+    <h2 id="9-integration-des-match-preexistants-avant-lexistence-de-linterface-de-validation-dans-les-entites-selectionnables">9. Intégration des match préexistants avant l&#39;existence de l&#39;interface de validation dans les entités sélectionnables</h2>
+    <p>   Consisterait en la non exclusion dans <code>get_tms_id</code> des entités ayant un <code>statut_validation</code> = match_communaute (actuellement exclues). </p>
+
+</body>
+
+</html>

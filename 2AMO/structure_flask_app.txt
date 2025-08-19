@@ -1,0 +1,53 @@
+/Dossier_de_l_application/
+│
+├── run.py                     # Point d'entrée de l'app (flask run)
+├── requirements.txt           # Dépendances Python
+├── README.md                  # Description du projet
+├── .gitignore                 # Fichiers/chemins à exclure de Git
+│
+├── /app/                      # Dossier principal de l'application
+│   ├── __init__.py  
+│   ├── app.py                 # Initialisation de l'app Flask
+│   ├── config.py              # Configuration (dev, prod, etc.)
+│   │
+│   ├── /static/               # Fichiers statiques (Bootstrap, CSS, JS...)
+│   │   ├── __init__.py 
+│   │   ├── /bootstrap/        # Bootstrap local (pas de dépendance Internet)
+│   │   │   ├── /css/
+│   │   │   │   └── bootstrap.min.css
+│   │   │   └── /js/
+│   │   │       └── bootstrap.bundle.min.js
+│   │   ├── /css/              # styles CSS
+│   │   └── /js/               # scripts JS
+│   │
+│   ├── /models/               # Modèles de données et de formulaires
+│   │   ├── __init__.py        # (facultatif mais recommandé)
+│   │   ├── formulaires.py     # FlaskForms
+│   │   ├── utilisateurs.py    # Modèle User
+│   │   └── alignements.py     # Autre modèle métier
+│   │
+│   ├── /routes/               # Routes
+│   │   ├── __init__.py        
+│   │   ├── generales.py       # Routes générales (accueil, etc.)
+│   │   └── validation.py      # Routes liées à la validation ou au refus des candidats
+│   │
+│   └── /templates/            # Templates HTML (Jinja2)
+│       ├── __init__.py
+│       │
+│       ├── /pages/            # Pages complètes
+│       │   ├── __init__.py
+│       │   ├── base.html
+│       │   ├── accueil.html
+│       │   ├── validation.html
+│       │   └── historique.html
+│       │
+│       └── /partials/         # Composants HTML réutilisables
+│           ├── __init__.py
+│           ├── head.html
+│           ├── navbar.html
+│           ├── footer.html
+│           └── /formulaires/  # Templates de formulaires
+│               ├── __init__.py
+│               ├── connexion.html
+│               ├── inscription.html
+│               └── changermdp.html
