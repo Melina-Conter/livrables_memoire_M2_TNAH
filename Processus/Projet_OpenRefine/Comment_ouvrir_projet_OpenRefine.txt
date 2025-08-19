@@ -1,3 +1,0 @@
-Après avoir installé OpenRefine (Windows):
-- copier coller le dossier *.project dans Utilisateur\nom_utilisateur\AppData\Roaming\OpenRefine
-- démarer OpenRefine et ouvrir le projet "extraction random 10000 13 05 2025 Openrefine csv"
