@@ -33,7 +33,7 @@
     - [1. Personnes et Institutions alignées et publiées sur le répertoire des artistes et personnalités](#1-personnes-et-institutions-alignées-et-publiées-sur-le-répertoire-des-artistes-et-personnalités)
       - [a. Récupération des ids TMS avec le `statut_validation` "aligne" et du ou des candidats validés (une ligne par paire TMS-candidat distincte)](#a-récupération-des-ids-tms-avec-le-statut_validation-aligne-et-du-ou-des-candidats-validés-une-ligne-par-paire-tms-candidat-distincte)
       - [b. Récupération des ids TMS publiés sur le répertoire](#b-récupération-des-ids-tms-publiés-sur-le-répertoire)
-      - [c. Exclusion des ids TMS non publiés sur le répertoire et fromatagepour Quickstatements](#c-exclusion-des-ids-tms-non-publiés-sur-le-répertoire-et-fromatagepour-quickstatements)
+      - [c. Exclusion des ids TMS non publiés sur le répertoire et formatage pour Quickstatements](#c-exclusion-des-ids-tms-non-publiés-sur-le-répertoire-et-formatage-pour-quickstatements)
       - [d. Inscription via Quickstatements](#d-inscription-via-quickstatements)
       - [e. Mise à jour du statut\_validation des entités TMS concernées](#e-mise-à-jour-du-statut_validation-des-entités-tms-concernées)
     - [2. Personnes et institutions non-alignées et publiées sur le répertoire des artistes et personnalités](#2-personnes-et-institutions-non-alignées-et-publiées-sur-le-répertoire-des-artistes-et-personnalités)
@@ -573,9 +573,9 @@ CSV de sortie `table_relation_tms_candidats_with_flags.csv` :
 #### a. Création d'un schéma dédié sur le serveur Postgre du serveur B
 - Création du schéma `app_alignement` dans la base base_b
 - Création d'un utilisateur dédié à l'application pour lire et éditer le schéma `app_alignement`
-  > username : aamo
+  > username : exemple_utilisateur
   
-  > password : AETKfS0065U1LAkRHhU7
+  > password : exemple_mot_de_passe
   
 #### b. Création des tables à partir des csv
 Voir le [modèle de la base SQL de l'application](./Processus/Schemas/Modèle_base_app_alignement.png)
@@ -705,7 +705,7 @@ Création des tables "vides" : utilisateurs et historique (voir les tables en *i
 
    Exporter le résultat en csv
 
-  #### c. Exclusion des ids TMS non publiés sur le répertoire et fromatagepour Quickstatements
+  #### c. Exclusion des ids TMS non publiés sur le répertoire et formatage pour Quickstatements
      
    Voir [script dédié](./Scripts/exclusion_formattage_quickstatements.py)
 
@@ -725,7 +725,7 @@ Création des tables "vides" : utilisateurs et historique (voir les tables en *i
   #### d. Inscription via Quickstatements
      
    Depuis [l'interface de Quickstatements](https://quickstatements.toolforge.org/index_old.html) (ici, l'ancienne version car je n'avais pas de compte Wikidata agréé): 
-   - Se connecter avec un compte Wikidata valide (50 modifications et 4 jours d'ancienneté)
+   - Se connecter avec un compte Wikidata confirmé (50 modifications et 4 jours d'ancienneté)
    - Importer des commandes > format version 1
    - Copier-coller le contenu du fichier de sortie après exclusion des entités non publiées et formatage dans l'interface de saisie.
    - Lancer l'édition de masse.
@@ -795,3 +795,4 @@ Création des tables "vides" : utilisateurs et historique (voir les tables en *i
 9. Exemple de script SQL pour la mise à jour des `statut_validation` après edition des entites wikdiata alignees ([voir document](./script_sql_statut_publie_20250731_110138.sql)) ([en savoir plus](#1-personnes-et-institutions-alignées-et-publiées-sur-le-répertoire-des-artistes-et-personnalités))
 
 10. Page d'aide FR de Quickstatements ([voir le document](https://www.wikidata.org/wiki/Help:QuickStatements/fr))
+
