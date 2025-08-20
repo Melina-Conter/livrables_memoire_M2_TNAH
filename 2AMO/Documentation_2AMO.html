@@ -323,7 +323,7 @@
 │   ├── <span class="hljs-regexp">/models/</span>               <span class="hljs-comment"># Modèles de données et de formulaires </span>
 │   │   ├── __init__.py        
 │   │   ├── formulaires.py     <span class="hljs-comment"># FlaskForms (classes pour les formulaires)</span>
-│   │   ├── donnees_PRA.py     <span class="hljs-comment"># Modèle de la table extraite du PRA (ORM)</span>
+│   │   ├── donnees_A.py     <span class="hljs-comment"># Modèle de la table extraite du A (ORM)</span>
 │   │   └── base_principale.py <span class="hljs-comment"># Modèle de la base app_alignement (ORM)</span>
 │   │
 │   ├── <span class="hljs-regexp">/routes/</span>               <span class="hljs-comment"># Routes</span>
@@ -705,13 +705,13 @@
             <tr>
                 <td>SQLALCHEMY_DATABASE_URI</td>
                 <td>Chemin vers le schema <code>app_alignement</code> (base SQL de l'application) sur le serveur
-                    Postgre du serveur LAB</td>
+                    Postgre du serveur B</td>
                 <td><code>str</code></td>
             </tr>
             <tr>
                 <td>SQLALCHEMY_BINDS_DONNEES_TMS</td>
                 <td>Chemin vers la table <code>tms-constituent_constituent-description</code>, schema <code>main</code>
-                    (données TMS extraites du serveur PRA) sur le serveur Pstgre du serveur LAB</td>
+                    (données TMS extraites du serveur A) sur le serveur Pstgre du serveur B</td>
                 <td><code>str</code></td>
             </tr>
             <tr>
@@ -753,13 +753,13 @@
         </tbody>
     </table>
     <h1 id="deploiement-mise-a-jour">DEPLOIEMENT / MISE A JOUR</h1>
-    <p>L'application est déployée sur le serveur LAB, via un serveur Apache à l'URL <a
-            href="https://mo-ux-sdpn:3001">https://mo-ux-sdpn:3001</a>.
-        Voir le script de déploiement[] qui permet de mettre à jour l'application depuis la branche principale du <a
-            href="https://github.com/Melina-Conter/app_alignements_orsay">dépôt Github</a>.</p>
+    <p>L'application est déployée sur le serveur B, via un serveur Apache à l'URL <a
+            href="https://exemple.url.fr">https://exemple.url.fr</a>.
+        Voir le script de déploiement qui permet de mettre à jour l'application depuis la branche principale du <a
+            href="https://exemple.url.fr">dépôt Github</a>.</p>
     <blockquote>
         <p>Note : le dépôt Github est en privé pour des raisons de sécurité (en particulier les variables du .env qui
-            contient des identifiants pour le serveur Postgre du serveur LAB). Tout compte qui n'aura pas été ajouté
+            contient des identifiants pour le serveur Postgre du serveur B). Tout compte qui n'aura pas été ajouté
             en tant que collaborateur ne pourra pas y avoir accès.</p>
     </blockquote>
     <h1 id="pistes-damelioration">PISTES D&#39;AMELIORATION</h1>
