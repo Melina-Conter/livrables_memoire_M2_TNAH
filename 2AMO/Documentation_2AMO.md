@@ -399,8 +399,8 @@ Les variables globales de l'application sont stockées dans le fichier `.env`.
 
 # DEPLOIEMENT / MISE A JOUR
 
-L'application est déployée sur le serveur LAB, via un serveur Apache à l'URL [https://mo-ux-sdpn:3001](https://mo-ux-sdpn:3001).
-Voir le [processus de déploiement](https://github.com/Melina-Conter/app_alignements_orsay/tree/main/proc_deploiement) qui permet de mettre à jour l'application depuis la branche principale du [dépôt Github](https://github.com/Melina-Conter/app_alignements_orsay).
+L'application est déployée sur le serveur LAB, via un serveur Apache à l'URL [https://exemple.url.fr](https://exemple.url.fr).
+Voir le [processus de déploiement](https://exemple.url.fr) qui permet de mettre à jour l'application depuis la branche principale du [dépôt Github](https://exemple.url.fr).
 > Note : le dépôt Github utilisé pour le déploiement est privé pour des raisons de sécurité (en particulier les variables du .env qui contient des identifiants pour le serveur Postgre du serveur LAB). Tout compte qui n'aura pas été ajouté en tant que collaborateur ne pourra pas y avoir accès.
 
 # PISTES D'AMELIORATION 
@@ -460,4 +460,5 @@ Voir le [processus de déploiement](https://github.com/Melina-Conter/app_alignem
 
 ## 9. Intégration des match préexistants avant l'existence de l'interface de validation dans les entités sélectionnables
    Consisterait en la non exclusion dans `get_tms_id` des entités ayant un `statut_validation` = match_communaute (actuellement exclues). 
+
 
