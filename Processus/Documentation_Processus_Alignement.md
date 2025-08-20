@@ -4,7 +4,7 @@
 - [DOCUMENTATION PROCESSUS ALIGNEMENT](#documentation-processus-alignement)
     - [Table des matières :](#table-des-matières-)
   - [I. Génération des candidats](#i-génération-des-candidats)
-    - [1. Extraction des données depuis le serveur PRA avec des requêtes SQL](#1-extraction-des-données-depuis-le-serveur-pra-avec-des-requêtes-sql)
+    - [1. Extraction des données depuis le serveur A avec des requêtes SQL](#1-extraction-des-données-depuis-le-serveur-a-avec-des-requêtes-sql)
       - [a. Les données pour OpenRefine](#a-les-données-pour-openrefine)
       - [b. Le nombre de liens à la création par entité TMS](#b-le-nombre-de-liens-à-la-création-par-entité-tms)
     - [2. Projet OpenRefine](#2-projet-openrefine)
@@ -23,7 +23,7 @@
       - [a. Création des CSV de base pour les différentes tables](#a-création-des-csv-de-base-pour-les-différentes-tables)
       - [b. Calcul des flags des données principales pour l'affichage dans l'application](#b-calcul-des-flags-des-données-principales-pour-laffichage-dans-lapplication)
     - [4. Création de la base de l'application dans DBeaver](#4-création-de-la-base-de-lapplication-dans-dbeaver)
-      - [a. Création d'un schéma dédié sur le serveur Postgre du serveur LAB](#a-création-dun-schéma-dédié-sur-le-serveur-postgre-du-serveur-lab)
+      - [a. Création d'un schéma dédié sur le serveur Postgre du serveur B](#a-création-dun-schéma-dédié-sur-le-serveur-postgre-du-serveur-b)
       - [b. Création des tables à partir des csv](#b-création-des-tables-à-partir-des-csv)
         - [b.1. Import des csv et complétion des tables importées](#b1-import-des-csv-et-complétion-des-tables-importées)
         - [b.2. Création des tables utilisateur et historique](#b2-création-des-tables-utilisateur-et-historique)
@@ -47,10 +47,10 @@
 
 ## I. Génération des candidats
 Voir le [schéma global](./Schemas/schema_global_processus_alignement.png) du processus d'alignement
-### 1. Extraction des données depuis le serveur PRA avec des requêtes SQL ###
+### 1. Extraction des données depuis le serveur A avec des requêtes SQL ###
 #### a. Les données pour OpenRefine 
 **Pour X entités en hasard** (X étant un nombre à déterminer) : 
-- Requête SQL de récupération de tous les IDs TMS dans le serveur PRA :
+- Requête SQL de récupération de tous les IDs TMS dans le serveur A :
   ```sql
 	SELECT ConstituentID 
 	FROM Constituents;
@@ -70,7 +70,7 @@ Sortie du script :
     - Distribution des IDs sélectionnés par types
     - Requête SQL
 
-Pour une **liste d'entités déjà déterminée** : utiliser la requête SQL ci-dessous sur le serveur PRA en remplaçant "liste, des, IDs..." par la liste des ID TMS des dites entités.
+Pour une **liste d'entités déjà déterminée** : utiliser la requête SQL ci-dessous sur le serveur A en remplaçant "liste, des, IDs..." par la liste des ID TMS des dites entités.
 
 ```sql
 WITH DomaineCTE AS (
@@ -123,11 +123,11 @@ WITH DomaineCTE AS (
 ```
 >Autres options : 
 >- Rajouter une possibilité pour exclure des ID TMS à partir d'une liste d'ID exclus (permettrait d'éviter de traiter les entités déjà présentes dans l'application)
->- Possibilité de sélectionner les données directement dans la table extraite du PRA sur le serveur lab, schema `main`, table `tms-constituent_constituent-description` au lieu de passer par la requête complète mais du coup traitement des données différent à prévoir dans OpenRefine.
+>- Possibilité de sélectionner les données directement dans la table extraite du A sur le serveur B, schema `main`, table `tms-constituent_constituent-description` au lieu de passer par la requête complète mais du coup traitement des données différent à prévoir dans OpenRefine.
 
 ---
 #### b. Le nombre de liens à la création par entité TMS
-Requête SQL à executer sur le serveur PRA : 
+Requête SQL à executer sur le serveur A : 
 ```sql
 SELECT c.ConstituentID,
        COUNT(DISTINCT r.RoleID) AS nb_roles_creation
@@ -380,7 +380,7 @@ Fonctionnement :
 | Paramètres globaux | Description | Format/Type |
 |---|---|---|
 | chemin_csv_tms | Chemin du csv final OpenRefine. | `.csv` |
-| chemin_csv_nb_liens_creations | Chemin du csv généré par la [requête sur le serveur PRA](#b-le-nombre-de-liens-à-la-création-par-entité-tms) pour récupérer le nombre de liens à la création pour chaque entité TMS | `.csv` |
+| chemin_csv_nb_liens_creations | Chemin du csv généré par la [requête sur le serveur A](#b-le-nombre-de-liens-à-la-création-par-entité-tms) pour récupérer le nombre de liens à la création pour chaque entité TMS | `.csv` |
 | chemin_csv_qid | Chemin du csv indiquant les entités préalablement alignées par la communauté Wikidata généré par [une requête SPARQL](#2-récupération-des-entités-déjà-alignées-sur-wikidata) | `.csv` |
 | dossier_json | Chemin du dossier contenant les fichiers JSON [les full dumps des candidats Wikidata](#a1-les-dates) | `/dir` |
 | chemin_csv_exclusion | Chemin du csv indiquant les candidats Wikidata à exclure | `.csv` |
@@ -570,8 +570,8 @@ CSV de sortie `table_relation_tms_candidats_with_flags.csv` :
 
 ### 4. Création de la base de l'application dans DBeaver
 
-#### a. Création d'un schéma dédié sur le serveur Postgre du serveur LAB
-- Création du schéma `app_alignement` dans la base lab_sdpn
+#### a. Création d'un schéma dédié sur le serveur Postgre du serveur B
+- Création du schéma `app_alignement` dans la base base_b
 - Création d'un utilisateur dédié à l'application pour lire et éditer le schéma `app_alignement`
   > username : aamo
   
@@ -665,7 +665,7 @@ Création des tables "vides" : utilisateurs et historique (voir les tables en *i
   Spécificités de la table :
   - nom : `tms-constituent_constituent-description`
   - schema : `main`
-  - droits de lecture pour l'utilisateur aamo ([voir création de l'utilisateur](#a-création-dun-schéma-dédié-sur-le-serveur-postgre-du-serveur-lab))
+  - droits de lecture pour l'utilisateur aamo ([voir création de l'utilisateur](#a-création-dun-schéma-dédié-sur-le-serveur-postgre-du-serveur-b))
   - [modèle de la table](./Processus/Schemas/Modèle_table_%20tms-constituent_constituent-description.png)
   - Agrégation des champs multivalués : colonnes type JSON
   - colonne `db_update` : TIMESTAMP de la dernière mise à jour des données de l'entité
@@ -679,7 +679,7 @@ Création des tables "vides" : utilisateurs et historique (voir les tables en *i
 
   #### a. Récupération des ids TMS avec le `statut_validation` "aligne" et du ou des candidats validés (une ligne par paire TMS-candidat distincte)
      
-   Requête à réaliser sur le serveur Postgre du serveur LAB, base lab_sdpn, schema app_alignement (base principale de l'application)
+   Requête à réaliser sur le serveur Postgre du serveur B, base base_b, schema app_alignement (base principale de l'application)
 
    ```sql
     select rtc.tms_id, rtc.qid
@@ -693,7 +693,7 @@ Création des tables "vides" : utilisateurs et historique (voir les tables en *i
 
   #### b. Récupération des ids TMS publiés sur le répertoire 
      
-   Requête à réaliser sur le serveur PRA
+   Requête à réaliser sur le serveur A
 
    ```sql
     SELECT DISTINCT ufx.ID
@@ -717,7 +717,7 @@ Création des tables "vides" : utilisateurs et historique (voir les tables en *i
    | Paramètres | Description | Format/Type |
    | --- | --- | --- |
    | ids_alignes_candidats | Nom du fichier résultant de l'export du schéma app_alignement | `.csv` |
-   | ids_repertoire | Nom du fichier résultant de l'export du serveur PRA | `.csv` |
+   | ids_repertoire | Nom du fichier résultant de l'export du serveur A | `.csv` |
    | fichier_sortie | Nom du fichier txt de sortie préformaté pour Quickstatements ( qid [TAB] P2268 [TAB] tms_id ). Le nom contient un horodatage de sa création pour tracer les différentes édition sur Wikidata. | `.txt` |
    | script_sql_statut_publie | Nom du fichier sql contenant la requête de mise à jour du `statut_validation` des entités TMS concernée par l'édition sur Wikidata Le nom contient un horodatage de sa création pour tracer les différentes édition sur Wikidata. | `.sql` | 
 
@@ -740,7 +740,7 @@ Création des tables "vides" : utilisateurs et historique (voir les tables en *i
 
   #### e. Mise à jour du statut_validation des entités TMS concernées
      
-   Executer le [script SQL](./script_sql_statut_publie_20250731_110138.sql) généré par le script d'exclusion et de formatage pour Quickstatements sur le schéma app_alignement, base lab_sdnp, serveur Postgre du serveur LAB. 
+   Executer le [script SQL](./script_sql_statut_publie_20250731_110138.sql) généré par le script d'exclusion et de formatage pour Quickstatements sur le schéma app_alignement, base base_b, serveur Postgre du serveur B. 
 
 ### 2. Personnes et institutions non-alignées et publiées sur le répertoire des artistes et personnalités
 
@@ -767,11 +767,11 @@ Création des tables "vides" : utilisateurs et historique (voir les tables en *i
   
 ## V. Import de nouvelles entités TMS dans la base de 2AMO
 
-  Pour importer de nouvelles entités TMS dans la base de l'application, il faudra reproduire les étapes d'extraction des données du PRA, du projet OpenRefine, de la récupération des données des candidats, de l'exclusion des candidats par écarts de dates, du calcul des scores_flag_* et intégrer les données dans les tables correspondantes.
+  Pour importer de nouvelles entités TMS dans la base de l'application, il faudra reproduire les étapes d'extraction des données du A, du projet OpenRefine, de la récupération des données des candidats, de l'exclusion des candidats par écarts de dates, du calcul des scores_flag_* et intégrer les données dans les tables correspondantes.
 
 ## LISTE DES SCRIPTS ET DOCUMENTS CITES
 ### Scripts
-1. Script de sélection d'entités TMS au hasard et génération de la requête SQL pour extraction des données du PRA ([script](./Scripts/sample_maker_v2.py)) ([en savoir plus](#1-extraction-des-données-depuis-le-serveur-pra-avec-des-requêtes-sql))
+1. Script de sélection d'entités TMS au hasard et génération de la requête SQL pour extraction des données du A ([script](./Scripts/sample_maker_v2.py)) ([en savoir plus](#1-extraction-des-données-depuis-le-serveur-a-avec-des-requêtes-sql))
 2. Script de récupération des lignes avec erreurs à partir de l'export csv OpenRefine ([script](./Scripts/recup_batch_error.py)) ([en savoir plus](./Scripts/recup_batch_error.py))
 3. Script de fusion des différents exports Openrefine sans erreur ([script](./Scripts/fusion_batch_error_et_premier_batch.py)) ([en savoir plus](#2-projet-openrefine))
 4. Script de téléchargement des données des candidats ([script](./Scripts/recuperation_json_asynchrone_candidats.py)) ([en savoir plus](#a-récuperation-des-données-wikidata-pour-chaque-candidat))
@@ -793,4 +793,5 @@ Création des tables "vides" : utilisateurs et historique (voir les tables en *i
 7. Modèle de la table `tms-constituent_constituent-description` ([voir le document](./Processus/Schemas/Modèle_table_%20tms-constituent_constituent-description.png)) ([en savoir plus](#iii-création-dune-table-des-données-tms-pour-laffichage-dans-lapplication))
 8. Exemple de fichier de sortie formatté pour Quickstatements ([voir document](./quickstatements_p2268_20250731_110138.txt)) ([en savoir plus](#1-personnes-et-institutions-alignées-et-publiées-sur-le-répertoire-des-artistes-et-personnalités))
 9. Exemple de script SQL pour la mise à jour des `statut_validation` après edition des entites wikdiata alignees ([voir document](./script_sql_statut_publie_20250731_110138.sql)) ([en savoir plus](#1-personnes-et-institutions-alignées-et-publiées-sur-le-répertoire-des-artistes-et-personnalités))
+
 10. Page d'aide FR de Quickstatements ([voir le document](https://www.wikidata.org/wiki/Help:QuickStatements/fr))
