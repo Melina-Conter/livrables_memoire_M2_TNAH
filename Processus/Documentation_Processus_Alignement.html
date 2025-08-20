@@ -225,7 +225,7 @@ code>* {
                 <li><a href="#table-des-matieres">Table des matières</a></li>
                 <li><a href="#i-generation-des-candidats">I. Génération des candidats</a>
                     <ul>
-                        <li><a href="#1-extraction-des-donnees-depuis-le-serveur-pra-avec-des-requetes-sql">1. Extraction des données depuis le serveur PRA avec des requêtes SQL</a>
+                        <li><a href="#1-extraction-des-donnees-depuis-le-serveur-a-avec-des-requetes-sql">1. Extraction des données depuis le serveur A avec des requêtes SQL</a>
                             <ul>
                                 <li><a href="#a-les-donnees-pour-openrefine">a. Les données pour OpenRefine</a></li>
                                 <li><a href="#b-le-nombre-de-liens-a-la-creation-par-entite-tms">b. Le nombre de liens à la création par entité TMS</a></li>
@@ -263,7 +263,7 @@ code>* {
                         </li>
                         <li><a href="#4-creation-de-la-base-de-lapplication-dans-dbeaver">4. Création de la base de l&#39;application dans DBeaver</a>
                             <ul>
-                                <li><a href="#a-creation-dun-schema-dedie-sur-le-serveur-postgre-du-serveur-lab">a. Création d&#39;un schéma dédié sur le serveur Postgre du serveur LAB</a></li>
+                                <li><a href="#a-creation-dun-schema-dedie-sur-le-serveur-postgre-du-serveur-b">a. Création d&#39;un schéma dédié sur le serveur Postgre du serveur B</a></li>
                                 <li><a href="#b-creation-des-tables-a-partir-des-csv">b. Création des tables à partir des csv</a>
                                     <ul>
                                         <li><a href="#b1-import-des-csv-et-completion-des-tables-importees">b.1. Import des csv et complétion des tables importées</a></li>
@@ -310,11 +310,11 @@ code>* {
     
     <h2 id="i-generation-des-candidats">I. Génération des candidats</h2>
     <p>Voir le <a href="./Schemas/schema_global_processus_alignement.png">schéma global</a> du processus d&#39;alignement</p>
-    <h3 id="1-extraction-des-donnees-depuis-le-serveur-pra-avec-des-requetes-sql">1. Extraction des données depuis le serveur PRA avec des requêtes SQL</h3>
+    <h3 id="1-extraction-des-donnees-depuis-le-serveur-a-avec-des-requetes-sql">1. Extraction des données depuis le serveur A avec des requêtes SQL</h3>
     <h4 id="a-les-donnees-pour-openrefine">a. Les données pour OpenRefine</h4>
     <p><strong>Pour X entités en hasard</strong> (X étant un nombre à déterminer) : </p>
     <ul>
-        <li>Requête SQL de récupération de tous les IDs TMS dans le serveur PRA :<pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> ConstituentID 
+        <li>Requête SQL de récupération de tous les IDs TMS dans le serveur A :<pre><code class="lang-sql">  <span class="hljs-keyword">SELECT</span> ConstituentID 
             <span class="hljs-keyword">FROM</span> Constituents;
         </code></pre>
     </li>
@@ -337,7 +337,7 @@ code>* {
     </ul>
 </li>
 </ul>
-<p>Pour une <strong>liste d&#39;entités déjà déterminée</strong> : utiliser la requête SQL ci-dessous sur le serveur PRA en remplaçant &quot;liste, des, IDs...&quot; par la liste des ID TMS des dites entités.</p>
+<p>Pour une <strong>liste d&#39;entités déjà déterminée</strong> : utiliser la requête SQL ci-dessous sur le serveur A en remplaçant &quot;liste, des, IDs...&quot; par la liste des ID TMS des dites entités.</p>
 <pre><code class="lang-sql">WITH DomaineCTE AS (
     <span class="hljs-keyword">SELECT</span> c.ConstituentID,
     c.ConstituentTypeID <span class="hljs-keyword">as</span> <span class="hljs-keyword">Type</span>,
@@ -390,12 +390,12 @@ code>* {
     <p>Autres options : </p>
     <ul>
         <li>Rajouter une possibilité pour exclure des ID TMS à partir d&#39;une liste d&#39;ID exclus (permettrait d&#39;éviter de traiter les entités déjà présentes dans l&#39;application)</li>
-        <li>Possibilité de sélectionner les données directement dans la table extraite du PRA sur le serveur lab, schema <code>main</code>, table <code>tms-constituent_constituent-description</code> au lieu de passer par la requête complète mais du coup traitement des données différent à prévoir dans OpenRefine.</li>
+        <li>Possibilité de sélectionner les données directement dans la table extraite du A sur le serveur b, schema <code>main</code>, table <code>tms-constituent_constituent-description</code> au lieu de passer par la requête complète mais du coup traitement des données différent à prévoir dans OpenRefine.</li>
     </ul>
 </blockquote>
 <hr>
 <h4 id="b-le-nombre-de-liens-a-la-creation-par-entite-tms">b. Le nombre de liens à la création par entité TMS</h4>
-<p>Requête SQL à executer sur le serveur PRA : </p>
+<p>Requête SQL à executer sur le serveur A : </p>
 <pre><code class="lang-sql"><span class="hljs-keyword">SELECT</span> c.ConstituentID,
     <span class="hljs-keyword">COUNT</span>(<span class="hljs-keyword">DISTINCT</span> r.RoleID) <span class="hljs-keyword">AS</span> nb_roles_creation
     <span class="hljs-keyword">FROM</span> Constituents c
@@ -943,7 +943,7 @@ code>* {
             </tr>
             <tr>
                 <td>chemin_csv_nb_liens_creations</td>
-                <td>Chemin du csv généré par la <a href="#b-le-nombre-de-liens-a-la-creation-par-entite-tms">requête sur le serveur PRA</a> pour récupérer le nombre de liens à la création pour chaque entité TMS</td>
+                <td>Chemin du csv généré par la <a href="#b-le-nombre-de-liens-a-la-creation-par-entite-tms">requête sur le serveur A</a> pour récupérer le nombre de liens à la création pour chaque entité TMS</td>
                 <td><code>.csv</code></td>
             </tr>
             <tr>
@@ -1282,13 +1282,13 @@ code>* {
 </table>
 
 <h3 id="4-creation-de-la-base-de-lapplication-dans-dbeaver">4. Création de la base de l&#39;application dans DBeaver</h3>
-<h4 id="a-creation-dun-schema-dedie-sur-le-serveur-postgre-du-serveur-lab">a. Création d&#39;un schéma dédié sur le serveur Postgre du serveur LAB</h4>
+<h4 id="a-creation-dun-schema-dedie-sur-le-serveur-postgre-du-serveur-b">a. Création d&#39;un schéma dédié sur le serveur Postgre du serveur B</h4>
 <ul>
-    <li>Création du schéma <code>app_alignement</code> dans la base lab_sdpn</li>
+    <li>Création du schéma <code>app_alignement</code> dans la base base_b</li>
     <li><p>Création d&#39;un utilisateur dédié à l&#39;application pour lire et éditer le schéma <code>app_alignement</code></p>
         <blockquote>
-            <p>username : aamo</p>
-            <p>password : AETKfS0065U1LAkRHhU7</p>
+            <p>username : exemple_utilisateur</p>
+            <p>password : exemple_mot_de_passe</p>
         </blockquote>
     </li>
 </ul>
@@ -1400,7 +1400,7 @@ code>* {
 <ul>
     <li>nom : <code>tms-constituent_constituent-description</code></li>
     <li>schema : <code>main</code></li>
-    <li>droits de lecture pour l&#39;utilisateur aamo (<a href="#a-creation-dun-schema-dedie-sur-le-serveur-postgre-du-serveur-lab">voir création de l&#39;utilisateur</a>)</li>
+    <li>droits de lecture pour l&#39;utilisateur aamo (<a href="#a-creation-dun-schema-dedie-sur-le-serveur-postgre-du-serveur-b">voir création de l&#39;utilisateur</a>)</li>
     <li><a href="./Processus/Schemas/Modèle_table_%20tms-constituent_constituent-description.png">modèle de la table</a></li>
     <li>Agrégation des champs multivalués : colonnes type JSON</li>
     <li>colonne <code>db_update</code> : TIMESTAMP de la dernière mise à jour des données de l&#39;entité</li>
@@ -1411,7 +1411,7 @@ code>* {
 <h3 id="1-personnes-et-institutions-alignees-et-publiees-sur-le-repertoire-des-artistes-et-personnalites">1. Personnes et Institutions alignées et publiées sur le répertoire des artistes et personnalités</h3>
 <p>Pour inscrire les alignements des entités TMS vers un/des candidat.s Wikidata sur Wikidata il faut ajouter la propriété <a href="https://www.wikidata.org/wiki/Property:P2268">P2268</a> (identifiant Musée d&#39;Orsay d&#39;un artiste ou d&#39;une personnalité) avec pour valeur l&#39;ID TMS (<code>Constituents.ConstituentID</code>). La propriété fait référence directement au répertoire des artistes et personnalités publié par l&#39;EPMO en reconstituant l&#39;URL (<a href="https://www.musee-orsay.fr/fr/ressources/repertoire-artistes-personnalites/[id">https://www.musee-orsay.fr/fr/ressources/repertoire-artistes-personnalites/[id</a> tms]). Il faut alors s&#39;assurer, pour pouvoir ajouter la propriété P2268, que les TMS alignées y sont bien publiées. </p>
 <h4 id="a-recuperation-des-ids-tms-avec-le-statut_validation-aligne-et-du-ou-des-candidats-valides-une-ligne-par-paire-tms-candidat-distincte">a. Récupération des ids TMS avec le <code>statut_validation</code> &quot;aligne&quot; et du ou des candidats validés (une ligne par paire TMS-candidat distincte)</h4>
-<p>Requête à réaliser sur le serveur Postgre du serveur LAB, base lab_sdpn, schema app_alignement (base principale de l&#39;application)</p>
+<p>Requête à réaliser sur le serveur Postgre du serveur b, base base_b, schema app_alignement (base principale de l&#39;application)</p>
 <pre><code class="lang-sql">    <span class="hljs-keyword">select</span> rtc.tms_id, rtc.qid
     <span class="hljs-keyword">from</span> app_alignement.relations_tms_candidats rtc 
     <span class="hljs-keyword">inner</span> <span class="hljs-keyword">join</span> app_alignement.table_tms tt <span class="hljs-keyword">on</span> tt.tms_id = rtc.tms_id
@@ -1421,7 +1421,7 @@ code>* {
 </code></pre>
 <p>Exporter le résultat en csv</p>
 <h4 id="b-e-cuperation-des-ids-tms-publies-sur-le-repertoire">b. Récupération des ids TMS publiés sur le répertoire</h4>
-<p>Requête à réaliser sur le serveur PRA</p>
+<p>Requête à réaliser sur le serveur A</p>
 <pre><code class="lang-sql">    <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> ufx.ID
     <span class="hljs-keyword">FROM</span> UserFieldXrefs ufx
     <span class="hljs-keyword">WHERE</span> ufx.ContextID = <span class="hljs-number">40</span>
@@ -1449,7 +1449,7 @@ code>* {
         </tr>
         <tr>
             <td>ids_repertoire</td>
-            <td>Nom du fichier résultant de l&#39;export du serveur PRA</td>
+            <td>Nom du fichier résultant de l&#39;export du serveur A</td>
             <td><code>.csv</code></td>
         </tr>
         <tr>
@@ -1478,7 +1478,7 @@ code>* {
             <p>Note : la v2 possède une API utilisable en script (génération d&#39;un token et specs dans l&#39;onglet utilisateur une fois connecté). Il serait envisageable sur le long terme, de créer un script automatisant l&#39;exclusion des entités non publiées, le formatage et l&#39;édition de masse.</p>
         </blockquote>
         <h4 id="e-mise-a-jour-du-statut_validation-des-entites-tms-concernees">e. Mise à jour du statut_validation des entités TMS concernées</h4>
-        <p>Executer le <a href="./script_sql_statut_publie_20250731_110138.sql">script SQL</a> généré par le script d&#39;exclusion et de formatage pour Quickstatements sur le schéma app_alignement, base lab_sdnp, serveur Postgre du serveur LAB. </p>
+        <p>Executer le <a href="./script_sql_statut_publie_20250731_110138.sql">script SQL</a> généré par le script d&#39;exclusion et de formatage pour Quickstatements sur le schéma app_alignement, base base_b, serveur Postgre du serveur B. </p>
     </li>
 </ul>
 <h3 id="2-personnes-et-institutions-non-alignees-et-publiees-sur-le-repertoire-des-artistes-et-personnalites">2. Personnes et institutions non-alignées et publiées sur le répertoire des artistes et personnalités</h3>
@@ -1500,12 +1500,12 @@ code>* {
 <h4 id="b-les-entites-tms-non-alignees">b. Les entitées TMS non alignées</h4>
 <p> Dans le cas ou l&#39;entité n&#39;est ni alignée, ni publiée dans le répertoire, l&#39;information de la non existence d&#39;un élément Wikidata correspondant reste enregistrée sur la base principale de l&#39;application (<code>statut validation</code> = &#39;non_aligne&#39;).</p>
 <h2 id="v-import-de-nouvelles-entites-tms-dans-la-base-de-2amo">V. Import de nouvelles entités TMS dans la base de 2AMO</h2>
-<p>Pour importer de nouvelles entités TMS dans la base de l&#39;application, il faudra reproduire les étapes d&#39;extraction des données du PRA, du projet OpenRefine, de la récupération des données des candidats, de l&#39;exclusion des candidats par écarts de dates, du calcul des scores<em>flag</em>* et intégrer les données dans les tables correspondantes.</p>
+<p>Pour importer de nouvelles entités TMS dans la base de l&#39;application, il faudra reproduire les étapes d&#39;extraction des données du serveur A, du projet OpenRefine, de la récupération des données des candidats, de l&#39;exclusion des candidats par écarts de dates, du calcul des scores<em>flag</em>* et intégrer les données dans les tables correspondantes.</p>
 
 <h2 id="liste-des-scripts-et-documents-cites">LISTE DES SCRIPTS ET DOCUMENTS CITES</h2>
 <h3 id="scripts">Scripts</h3>
 <ol>
-    <li>Script de sélection d&#39;entités tms au hasard et génération de la requête SQL pour extraction des données du PRA (<a href="./Scripts/sample_maker_v2.py">script</a>) (<a href="#1-extraction-des-donnees-depuis-le-serveur-pra-avec-des-requetes-sql">en savoir plus</a>)</li>
+    <li>Script de sélection d&#39;entités tms au hasard et génération de la requête SQL pour extraction des données du A (<a href="./Scripts/sample_maker_v2.py">script</a>) (<a href="#1-extraction-des-donnees-depuis-le-serveur-a-avec-des-requetes-sql">en savoir plus</a>)</li>
     <li>Script de récupération des lignes avec erreurs à partir de l&#39;export csv OpenRefine (<a href="./Scripts/recup_batch_error.py">script</a>) (<a href="#d-export-du-projet-en-csv">en savoir plus</a>)</li>
     <li>Script de fusion des différents exports Openrefine sans erreur (<a href="./Scripts/fusion_batch_error_et_premier_batch.py">script</a>) (<a href="#2-projet-openrefine">en savoir plus</a>)</li>
     <li>Script de téléchargement des données des candidats (<a href="./Scripts/recuperation_json_asynchrone_candidats.py">script</a>) (<a href="#a-recuperation-des-donnees-wikidata-pour-chaque-candidat">en savoir plus</a>)</li>
