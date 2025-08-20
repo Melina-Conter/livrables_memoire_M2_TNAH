@@ -67,7 +67,7 @@
     │   ├── /models/               # Modèles de données et de formulaires 
     │   │   ├── __init__.py        
     │   │   ├── formulaires.py     # FlaskForms (classes pour les formulaires)
-    │   │   ├── donnees_PRA.py     # Modèle de la table extraite du PRA (ORM)
+    │   │   ├── donnees_A.py     # Modèle de la table extraite du A (ORM)
     │   │   └── base_principale.py # Modèle de la base app_alignement (ORM)
     │   │
     │   ├── /routes/               # Routes
@@ -386,8 +386,8 @@ Les variables globales de l'application sont stockées dans le fichier `.env`.
 
 | Nom de la variable | description | type |
 | --- | --- | --- |
-| SQLALCHEMY_DATABASE_URI | Chemin vers le schema `app_alignement` (base SQL de l'application) sur le serveur Postgre du serveur LAB | `str` |
-| SQLALCHEMY_BINDS_DONNEES_TMS | Chemin vers la table `tms-constituent_constituent-description`, schema `main` (données TMS extraites du serveur PRA) sur le serveur Postgre du serveur LAB | `str` |
+| SQLALCHEMY_DATABASE_URI | Chemin vers le schema `app_alignement` (base SQL de l'application) sur le serveur Postgre du serveur B | `str` |
+| SQLALCHEMY_BINDS_DONNEES_TMS | Chemin vers la table `tms-constituent_constituent-description`, schema `main` (données TMS extraites du serveur A) sur le serveur Postgre du serveur B | `str` |
 | DEBUG | Activer et désactiver le Debug Mode de Flask | `bool` |
 | SECRET_KEY | Clé secrète d'encryptage et de décrytpage des mots de passe | `str`|
 | WTF_CSRF_ENABLE | Activation ou désactivation dui CSRF pour les FlaskForm | `bool`|
@@ -399,9 +399,9 @@ Les variables globales de l'application sont stockées dans le fichier `.env`.
 
 # DEPLOIEMENT / MISE A JOUR
 
-L'application est déployée sur le serveur LAB, via un serveur Apache à l'URL [https://exemple.url.fr](https://exemple.url.fr).
+L'application est déployée sur le serveur B, via un serveur Apache à l'URL [https://exemple.url.fr](https://exemple.url.fr).
 Voir le [processus de déploiement](https://exemple.url.fr) qui permet de mettre à jour l'application depuis la branche principale du [dépôt Github](https://exemple.url.fr).
-> Note : le dépôt Github utilisé pour le déploiement est privé pour des raisons de sécurité (en particulier les variables du .env qui contient des identifiants pour le serveur Postgre du serveur LAB). Tout compte qui n'aura pas été ajouté en tant que collaborateur ne pourra pas y avoir accès.
+> Note : le dépôt Github utilisé pour le déploiement est privé pour des raisons de sécurité (en particulier les variables du .env qui contient des identifiants pour le serveur Postgre du serveur B). Tout compte qui n'aura pas été ajouté en tant que collaborateur ne pourra pas y avoir accès.
 
 # PISTES D'AMELIORATION 
 ## 1. Utilisation de l'API de réconciliation dans l'application
@@ -460,5 +460,6 @@ Voir le [processus de déploiement](https://exemple.url.fr) qui permet de mettre
 
 ## 9. Intégration des match préexistants avant l'existence de l'interface de validation dans les entités sélectionnables
    Consisterait en la non exclusion dans `get_tms_id` des entités ayant un `statut_validation` = match_communaute (actuellement exclues). 
+
 
 
