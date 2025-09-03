@@ -1,0 +1,17 @@
+<head>
+    <!-- Définition de l'encodage des caractères -->
+    <meta charset="UTF-8">
+    <!-- Compatibilité avec Internet Explorer -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Configuration pour un affichage responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Titre de la page -->
+    <title>2AMO</title>
+    <!-- Bootstrap CSS local -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- Bootstrap JS en local -->
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    {% if request.path=="/historique" %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/css_historique.css') }}">
+    {% endif %}
+</head>

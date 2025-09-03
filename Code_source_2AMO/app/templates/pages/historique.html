@@ -1,0 +1,202 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}Historique{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <!-- Affichage des messages d'erreur -->
+    {% with error_messages = get_flashed_messages(with_categories=true, category_filter=['danger', 'error', 'warning']) %}
+        {% if error_messages %}
+            {% for category, message in error_messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="card my-3 p-4">
+        <h2 class="my-3 ms-5">Historique des actions</h2>
+        
+        <!--Pagination de l'historique-->
+        <div class="pagination mb-3">
+            {% if pagination.has_prev %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('historique', page=pagination.prev_num) }}">Précédent</a></li>
+            {% endif %}
+
+            {% for page_num in pagination.iter_pages(left_edge=1, left_current=1, right_current=2, right_edge=1) %}
+                {% if page_num %}
+                    {% if page_num == pagination.page %}
+                        <li class="page-item active" id="lien-actif"><strong class="page-link">{{ page_num }}</strong></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="{{ url_for('historique', page=page_num) if page_num != 1 else url_for('historique') }}">{{ page_num }}</a></li>
+                    {% endif %}
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if pagination.has_next %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('historique', page=pagination.next_num) }}">Suivant</a></li>
+            {% endif %}
+        </div>
+
+        {% if actions|length > 0 %}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Annulation</th>
+                    <th>Date de l'action</th>
+                    <th>Action</th>
+                    <th>ID TMS</th>
+                    <th>Nom d'affichage TMS</th>
+                    <th>Détails</th>
+                    <th>Candidats validés</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for action in actions %}
+                    {% if action.type == 'passe' %}
+                    <tr>
+                        <td>
+                            <button class="btn btn-sm btn-outline-danger annuler-btn"
+                                    data-tms-id="{{ action.tms_id }}"
+                                    data-type-action="{{ action.type }}"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#confirmationModal">
+                                    Annuler
+                            </button>
+                        </td>
+                        <td>{{ action.date_heure }}</td>
+                        <td><span class="badge bg-warning">Passé</span></td>
+                        <td>{{ action.tms_id }}</td>
+                        <td>{{ action.displayname }}</td>
+                        <td>{{ action.nb_candidats_passes }} candidat(s) passé(s)</td>
+                        <td>-</td>
+                    </tr>
+                    {% elif action.type == 'valide_refuse' %}
+                    <tr>
+                        <td>
+                            <button class="btn btn-sm btn-outline-danger annuler-btn"
+                                    data-tms-id="{{ action.tms_id }}"
+                                    data-type-action="{{ action.type }}"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#confirmationModal">
+                                    Annuler
+                            </button>
+                        </td>
+                        <td>{{ action.date_heure }}</td>
+                        <td><span class="badge bg-success">Validation/Refus</span></td>
+                        <td>{{ action.tms_id }}</td>
+                        <td>{{ action.displayname }}</td>
+                        <td>
+                            <span class="text-success">✓ {{ action.nb_candidats_valides }} validé(s)</span>
+                            {% if action.nb_candidats_refuses > 0 %}
+                            <br><span class="text-danger">✗ {{ action.nb_candidats_refuses }} refusé(s)</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if action.candidats_valides %}
+                            <ul class="list-unstyled mb-0">
+                                {% for candidat in action.candidats_valides %}
+                                <li><small><strong>{{ candidat.qid }}</strong>: {{ candidat.label }}</small></li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Statistiques rapides -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h5>Statistiques</h5>
+                <p class="text-muted">
+                    Total des actions : {{ pagination.total }} | 
+                    Page {{ pagination.page }} sur {{ pagination.pages }}
+                </p>
+            </div>
+        </div>
+
+        {% else %}
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">Aucune action enregistrée</h4>
+            <p>Vous n'avez encore effectué aucune action d'alignement.</p>
+            <hr>
+            <p class="mb-0">Commencez par valider ou invalider des correspondances TMS-Wikidata pour voir votre historique ici.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Modal de confirmation d'annulation -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirmer l'annulation</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Êtes-vous sûr de vouloir annuler cette action ?</p>
+                    <div id="actionDetails" class="alert alert-light">
+                        <!-- Les détails de l'action seront affichés ici -->
+                    </div>
+                    <p class="text-warning"><small><i class="fas fa-exclamation-triangle"></i> Cette opération est irréversible.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <form id="annulerForm" method="POST" action="" style="display: inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-danger">Confirmer l'annulation</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script JavaScript pour le modal -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const confirmationModal = document.getElementById('confirmationModal');
+    
+    if (confirmationModal) {
+        confirmationModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const tmsId = button.getAttribute('data-tms-id');
+            const typeAction = button.getAttribute('data-type-action');
+            const form = document.getElementById('annulerForm');
+            const actionDetails = document.getElementById('actionDetails');
+
+            if (form && tmsId && typeAction) {
+                // Définir l'action du formulaire
+                form.action = `/annuler_action/${tmsId}/${typeAction}`;
+                
+                // Trouver la ligne correspondante dans le tableau pour récupérer les détails
+                const row = button.closest('tr');
+                if (row) {
+                    const dateHeure = row.cells[1].textContent.trim();
+                    const actionType = row.cells[2].textContent.trim();
+                    const displayname = row.cells[4].textContent.trim();
+                    
+                    // Afficher les détails dans le modal
+                    actionDetails.innerHTML = `
+                        <strong>TMS ID:</strong> ${tmsId}<br>
+                        <strong>Nom:</strong> ${displayname}<br>
+                        <strong>Date/Heure:</strong> ${dateHeure}<br>
+                        <strong>Type d'action:</strong> ${actionType}
+                    `;
+                }
+            }
+        });
+    }
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,405 @@
+{% extends '/pages/base.html' %}
+
+{% block title %}validation{% endblock %}
+
+{% block content %}
+<!-- CONTENU DE LA PAGE ACCUEIL-->
+
+<div class="container mt-5">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+
+    {% if donnees %}
+    <div class="mt-5">
+        <h2 id="debutpage">Informations de l'entité TMS {{donnees.tms_id}}</h2>
+        <table class="table table-bordered mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nom</th>
+                    <th>Naissance</th>
+                    <th>Décès</th>
+                    <th>Période(s) d'activité</th>
+                    <th>Dossier(s) à la documentation</th>
+                    <th>Rôle(s) à la création d'une oeuvre</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="https://www.musee-orsay.fr/fr/ressources/repertoire-artistes-personnalites/{{ donnees.tms_id }}">{{ donnees.displayname }}</a>
+                        {% if donnees.autres_labels %}
+                            {% for type_label, labels in donnees.autres_labels.items() %}
+                                {% if labels %}
+                                    <br>
+                                    <small class="text-muted">
+                                        {{ type_label.replace('_', ' ').capitalize() }} : 
+                                        {% for label in labels %}
+                                            {{ label }}{% if not loop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </small>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if donnees.date_naissance_historique %}
+                            {{ donnees.date_naissance_historique }}
+                        {% elif donnees.date_naissance %}
+                            {{ donnees.date_naissance }}
+                        {% endif %}
+
+                        {% if donnees.commune_naissance or donnees.departement_naissance or donnees.pays_naissance %}
+                            <br><small class="text-muted">
+                                {% set lieux = [] %}
+                                {% if donnees.commune_naissance %}{% set _ = lieux.append(donnees.commune_naissance) %}{% endif %}
+                                {% if donnees.departement_naissance %}{% set _ = lieux.append(donnees.departement_naissance) %}{% endif %}
+                                {% if donnees.pays_naissance %}{% set _ = lieux.append(donnees.pays_naissance) %}{% endif %}
+                                {{ lieux | join(', ') }}
+                            </small>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if donnees.date_mort_historique %}
+                            {{ donnees.date_mort_historique }}
+                        {% elif donnees.date_mort %}
+                            {{ donnees.date_mort }}
+                        {% endif %}
+
+                        {% if donnees.commune_mort or donnees.departement_mort or donnees.pays_mort %}
+                            <br><small class="text-muted">
+                                {% set lieux = [] %}
+                                {% if donnees.commune_mort %}{% set _ = lieux.append(donnees.commune_mort) %}{% endif %}
+                                {% if donnees.departement_mort %}{% set _ = lieux.append(donnees.departement_mort) %}{% endif %}
+                                {% if donnees.pays_mort %}{% set _ = lieux.append(donnees.pays_mort) %}{% endif %}
+                                {{ lieux | join(', ') }}
+                            </small>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if donnees.periodes_lieux_activites %}
+                            {% for periode in donnees.periodes_lieux_activites %}
+                            <div class="mb-2">
+                                {% if periode.date_activite %}
+                                    {{ periode.date_activite }}
+                                {% endif %}
+                                {% if periode.commune or periode.departement or periode.pays %}
+                                    <br><small class="text-muted">
+                                        {% set lieux = [] %}
+                                        {% if periode.commune %}{% set _ = lieux.append(periode.commune) %}{% endif %}
+                                        {% if periode.departement %}{% set _ = lieux.append(periode.departement) %}{% endif %}
+                                        {% if periode.pays %}{% set _ = lieux.append(periode.pays) %}{% endif %}
+                                        {{ lieux | join(', ') }}
+                                    </small>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if donnees.domaines_activite %}
+                            {% for domaine in donnees.domaines_activite %}
+                                {{ domaine.replace('_', ' ').capitalize() }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if donnees.roles %}
+                            {% for role in donnees.roles %}
+                                {{ role.replace('_', ' ').capitalize() }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                </tr>
+                
+
+                <th colspan="6" class="table-dark">
+                    Biographie
+                </th>
+                <tr>
+                    <td colspan="6">{{ donnees.biographie or 'Non renseignée' }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Boutons d'action -->
+        <div class="mt-4 d-flex justify-content-end gap-3">
+            <!-- Bouton pour valider les candidats sélectionnés -->
+            {% if infos_candidats %}
+            <button type="submit" form="validation-form" class="btn btn-success btn-lg">
+                <i class="fas fa-check me-2"></i>
+                Valider les candidats sélectionnés
+            </button>
+            {% endif %}
+
+            <!-- Bouton pour refuser tous les candidats -->
+            {% if infos_candidats %}
+            <form method="POST" action="{{ url_for('refuser_tous_candidats', tms_id=donnees.tms_id) }}" class="d-inline">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn btn-danger btn-lg">
+                    <i class="fas fa-check me-2"></i>
+                    Refuser tous les candidats
+                </button>
+            </form>
+            {% endif %}
+            
+            <!-- Bouton pour passer l'entité -->
+            <form method="POST" action="{{ url_for('passer_entite', tms_id=donnees.tms_id) }}" class="d-inline">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn btn-warning btn-lg">
+                    <i class="fas fa-forward me-2"></i>
+                    Passer cette entité
+                </button>
+            </form>
+        </div>
+
+    </div>
+    {% else %}
+    <p class="mt-5 text-danger">Aucun constituant trouvé.</p>
+    {% endif %}
+
+    {% if infos_candidats %}
+    <form method="POST" action="{{ url_for('valider_candidats', tms_id=donnees.tms_id) }}" id="validation-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="mt-5">
+            <h2>Informations des candidats</h2>
+            
+            {% for candidat in infos_candidats %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    
+                    <div class="row">
+                        <!-- Informations de base -->
+                        <div class="col-md-2">
+                            <!-- Nom du candidat avec couleur de fond selon le score -->
+                            {% set nom_class = candidat.scores.scores_flag_formatted.get('nom', {}).get('css_class', '') %}
+                            <h5 class="card-title mb-1 px-2 py-1 rounded {% if nom_class %}{{ nom_class }}{% else %}text-info{% endif %}" 
+                                style="{% if nom_class %}color: white;{% endif %}">
+                                {{ candidat.itemLabel }}
+                            </h5>
+                            <!-- Autres labels du candidat -->
+                            {% for autre_label in candidat.autres_labels %}
+                                {% if autre_label[1] == True %}
+                                <small class="bg-success px-2 py-1 rounded" style="color:white">{{ autre_label[0] }}</small>
+                                {% else %}
+                                <small class="text-muted">{{ autre_label[0] }}</small>
+                                {% endif %}
+                                {% if not loop.last %}<br>{% endif %}
+                            {% endfor %}
+                            <!-- QID du candidat avec lien vers Wikidata -->
+                            <br>
+                            <small><a class="text-muted" href="https://www.wikidata.org/wiki/{{ candidat.qid }}?uselang=fr" target="_blank">{{ candidat.qid }}</a></small>
+                            {% if candidat.description_courte %}
+                            <br>
+                            <p class="mt-2 mb-0"><small class="text-muted">{{ candidat.description_courte }}</small></p>
+                            {% endif %}
+                            {% if candidat.type_affichage != 'Q5' and candidat.types is defined and candidat.types.formatted is defined %}
+                                <br>
+                                <small class="text-muted">Nature : {{ candidat.types.formatted }}</small>
+                            {% else %}
+                                <br>
+                                <small class="text-muted">Genre : {{ candidat.genre }}</small>
+                            {% endif %}
+                        </div>
+                        
+                        {% if candidat.type_affichage == 'Q5' %}
+                        <!-- Naissance et décès -->
+                        <div class="col-md-3">
+                            
+                            {% if candidat.naissance.has_info %}
+                            <div class="mb-2">
+                                <strong>Naissance :</strong><br>
+                                <!-- Date de naissance avec couleur de fond selon le score -->
+                                {% if candidat.naissance.dates_formatted != "Non renseignée" %}
+                                    {% set date_naissance_class = candidat.scores.scores_flag_formatted.get('date_naissance', {}).get('css_class', '') %}
+                                    <small class="px-2 py-1 rounded {{ date_naissance_class }}" 
+                                           style="{% if date_naissance_class %}color: white;{% endif %}">
+                                        {{ candidat.naissance.dates_formatted }}
+                                    </small>
+                                {% else %}
+                                    <small>{{ candidat.naissance.dates_formatted }}</small>
+                                {% endif %}
+                                
+                                <!-- Lieu de naissance avec couleur de fond selon le score -->
+                                {% if candidat.naissance.lieux_formatted %}
+                                    <br>
+                                    {% set lieu_naissance_class = candidat.scores.scores_flag_formatted.get('lieu_naissance', {}).get('css_class', '') %}
+                                    <small class="text-muted px-2 py-1 rounded {{ lieu_naissance_class }}"
+                                           style="{% if lieu_naissance_class %}color: white !important;{% endif %}">
+                                        {{ candidat.naissance.lieux_formatted }}
+                                    </small>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-2">
+                                <strong>Décès :</strong><br>
+                                <!-- Date de décès avec couleur de fond selon le score -->
+                                {% if candidat.deces.dates_formatted != "Non renseignée" %}
+                                    {% set date_mort_class = candidat.scores.scores_flag_formatted.get('date_mort', {}).get('css_class', '') %}
+                                    <small class="px-2 py-1 rounded {{ date_mort_class }}" 
+                                           style="{% if date_mort_class %}color: white;{% endif %}">
+                                        {{ candidat.deces.dates_formatted }}
+                                    </small>
+                                {% else %}
+                                    <small>{{ candidat.deces.dates_formatted }}</small>
+                                {% endif %}
+                                
+                                <!-- Lieu de décès avec couleur de fond selon le score -->
+                                {% if candidat.deces.lieux_formatted %}
+                                    <br>
+                                    {% set lieu_mort_class = candidat.scores.scores_flag_formatted.get('lieu_mort', {}).get('css_class', '') %}
+                                    <small class="text-muted px-2 py-1 rounded {{ lieu_mort_class }}"
+                                           style="{% if lieu_mort_class %}color: white !important;{% endif %}">
+                                        {{ candidat.deces.lieux_formatted }}
+                                    </small>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Professions -->
+                        <div class="col-md-3">
+                            <div class="mb-2">
+                                <strong>Profession :</strong><br>
+                                <small>{{ candidat.occupations.formatted }}</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Relations -->
+                        <div class="col-md-3">
+                            <div>
+                                <strong>Relations :</strong><br>
+                                {% if candidat.relations.has_relations %}
+                                    {% for type_relation, personnes in candidat.relations.formatted.items() %}
+                                        <small class="me-1 mb-1">{{ type_relation }} : {{ personnes | join(', ') }}</small><br>
+                                    {% endfor %}
+                                {% else %}
+                                    <small class="text-muted">Aucune</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        {% elif candidat.type_affichage != 'Q5' %}
+                        <!-- Fondation -->
+                        <div class="col-md-3">
+                            <div class="mb-2">
+                                
+                                <strong>Fondation/Début d'activité :</strong><br>
+                                {% if candidat.fondation.has_info %}
+                                {% if candidat.fondation.dates_formatted != "Non renseignée" %}
+                                    <small>{{ candidat.fondation.dates_formatted }}</small>
+                                {% else %}
+                                    <small>Non renseignée</small>
+                                {% endif %}
+                                {% endif %}
+                            </div>
+
+                            <!-- Dissolution -->
+                            <div class="mb-2">
+                                
+                                <strong>Dissolution/Fin d'activité :</strong><br>
+                                {% if candidat.dissolution.has_info %}
+                                {% if candidat.dissolution.dates_formatted != "Non renseignée" %}
+                                    <small>{{ candidat.dissolution.dates_formatted }}</small>
+                                {% else %}
+                                    <small>Non renseignée</small>
+                                {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Localisation -->
+                        <div class="col-md-3">
+                            <div class="mb-2">
+                                <strong>Localisation :</strong><br>
+                                {% if candidat.sieges.formatted %}
+                                    <small>Siège(s) : {{ candidat.sieges.formatted }}</small><br>
+                                {% endif %}
+                                {% if candidat.pays.formatted %}
+                                    <small>Pays : {{ candidat.pays.formatted }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Changements satut légal -->
+                        <div class="col-md-3">
+                            {% if candidat.remplace.formatted != 'Non renseigné' or candidat.remplace_par.formatted != 'Non renseigné'%}
+                            <div class="mb-2">
+                                <strong>Changement de nom :</strong><br>
+                                {% if candidat.remplace.formatted != 'Non renseigné' %}
+                                <small>Précédemment : {{ candidat.remplace.formatted }}</small><br>
+                                {% endif %}
+                                {% if candidat.remplace_par.formatted != 'Non renseigné' %}
+                                <small>Ultérieurement : {{ candidat.remplace_par.formatted }}</small>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+
+
+                        <!-- Case à cocher pour sélectionner le candidat -->
+                        <div class="col-md-1 d-flex align-items-center justify-content-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" 
+                                       name="candidats_selectionnes" 
+                                       value="{{ candidat.qid }}" 
+                                       id="candidat_{{ candidat.qid }}"
+                                       style="transform: scale(1.5);">
+                                <label class="form-check-label" for="candidat_{{ candidat.qid }}">
+                                    <strong>Choisir</strong>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </form>
+    {% else %}
+    <p class="mt-5 text-danger">Aucun candidat trouvé pour cette entité tms.</p>
+    {% endif %}
+
+<!--- Bouton de retour vers le haut -->
+<div class="text-center my-5">
+    <button class="btn btn-light" onclick="window.location.href='#debutpage'">
+        Retour vers le haut
+    </button>
+</div>
+
+</div>
+
+<script>
+    // Durée d'inactivité en millisecondes (utilise la variable Jinja2)
+    const INACTIVITY_TIMEOUT = {{ timer_verrou_minutes }} * 60 * 1000;
+
+    let inactivityTimer;
+
+    function handleInactivity() {
+        alert("Aucune activité n'a été détectée depuis {{ timer_verrou_minutes }} minutes.\nVous allez être redirigé vers la page d'accueil.");
+        window.location.href = "/";
+    }
+
+    function resetInactivityTimer() {
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(handleInactivity, INACTIVITY_TIMEOUT);
+    }
+
+    // Événements qui réinitialisent le timer
+    ['click', 'mousemove', 'keydown', 'scroll', 'touchstart'].forEach(evt => {
+        document.addEventListener(evt, resetInactivityTimer, false);
+    });
+
+    // Démarrer le timer au chargement de la page
+    window.onload = resetInactivityTimer;
+</script>
+
+{% endblock %}

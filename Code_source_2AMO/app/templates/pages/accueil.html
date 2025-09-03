@@ -1,0 +1,32 @@
+{% extends '/pages/base.html' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+
+<!-- CONTENU DE LA PAGE ACCUEIL-->
+<div class="container mt-5">
+    <h1 class="text-primary text-center">2AMO</h1>
+    <div class="d-flex justify-content-center gap-3">
+        {% if current_user.is_authenticated %}
+        <button class="btn btn-primary mt-4" style="padding: 20px 40px; font-size: 1.5rem; min-width: 200px;" onclick="window.location.href='{{ url_for('validation') }}'">
+            Interface de Validation
+        </button>
+        <button class="btn btn-primary mt-4" style="padding: 20px 40px; font-size: 1.5rem; min-width: 200px;" onclick="window.location.href='{{ url_for('historique') }}'">
+            Mon Historique
+        </button>
+        <button class="btn btn-primary mt-4" style="padding: 20px 40px; font-size: 1.5rem; min-width: 200px;" onclick="window.location.href='{{ url_for('deconnexion') }}'">
+            Se deconnecter
+        </button>
+        {% else %}
+        <button class="btn btn-primary mt-4" style="padding: 20px 40px; font-size: 1.5rem; min-width: 200px;" onclick="window.location.href='{{ url_for('connexion') }}'">
+            Se connecter
+        </button>
+        <button class="btn btn-primary mt-4" style="padding: 20px 40px; font-size: 1.5rem; min-width: 200px;" onclick="window.location.href='{{ url_for('ajout_utilisateur') }}'">
+            S'inscrire
+        </button>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

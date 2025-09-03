@@ -1,0 +1,21 @@
+.annuler-btn {
+    transition: all 0.2s;
+}
+
+.annuler-btn:hover {
+    transform: scale(1.05);
+}
+
+#confirmationModal .modal-footer {
+    justify-content: space-between;
+}
+
+/* Ajoutez ce CSS pour voir quand le bouton est cliqué */
+.annuler-btn:active {
+    transform: scale(0.95);
+}
+
+/* Animation du modal */
+.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+}

@@ -1,0 +1,21 @@
+<script>
+    const INACTIVITY_TIMEOUT = {{timer_deconnexion_auto_minutes}} * 60 * 1000;
+    let timer;
+
+    function handleInactivity() {
+        fetch('/deconnexion_auto', { method: 'POST' }).then(() => {
+            window.location.href = "/";
+        });
+    }
+
+    function resetTimer() {
+        clearTimeout(timer);
+        timer = setTimeout(handleInactivity, INACTIVITY_TIMEOUT);
+    }
+
+    ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach(evt =>
+        document.addEventListener(evt, resetTimer)
+    );
+
+    window.onload = resetTimer;
+</script>

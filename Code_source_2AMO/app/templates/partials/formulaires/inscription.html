@@ -1,0 +1,50 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block content %}
+<!--CONTENU DU FORMULAIRE POUR L'INSCRIPTION-->
+<div class="container" style="display:flex; justify-content:center; align-items:center; height: 100%; width:70%;">
+    <div class="card p-4" style="width:70%">
+        <h1 class="my-3 text-center">S'inscrire</h1>
+
+        <!--Affichage de l'erreur dans la box-->
+        <!---Affichage des erreurs flash-->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                    {% for category, message in messages %}
+                        <p class="alert alert-{{ category }}">{{ message }}</p>
+                    {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Affichage des erreurs liées au formulaire -->
+        {% for field, errors in form.errors.items() %}
+                {% for error in errors %}
+                <p class="alert alert-danger">{{ error }}</p>
+                {% endfor %}
+        {% endfor %}
+
+        <!--Formulaire d'inscription-->
+        <form method="POST" action="{{ url_for('ajout_utilisateur') }}">
+
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <input class="form-control" type="email" name="email" placeholder="Votre adresse email" autofocus="">
+            </div>
+
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Votre mot de passe">
+            </div>
+            <!--Bouton de validation-->
+            <div class="text-center">
+                <button class="btn mb-3">S'inscrire</button>
+            </div>
+
+        </form>
+
+        <p class="text-center">Vous avez déjà un compte ? <a href="{{url_for('connexion')}}" id="lien_mdp_oublie">Connectez-vous</a> !</p>
+
+    </div>
+</div>
+{% endblock %}

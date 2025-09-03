@@ -1,0 +1,89 @@
+{% extends '/pages/base.html' %}
+
+{% block title %}Préférences{% endblock %}
+
+{% block content %}
+
+<!-- CONTENU DE LA PAGE PREFERENCES -->
+<div class="container mt-5">
+  <h2>Gestion des préférences</h2>
+
+  {# Messages flash #}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <div class="row mt-4">
+    <!-- Formulaire dans une carte -->
+    <div class="col-md-4">
+      <div class="card p-4 shadow-sm">
+        <h5 class="card-title text-center mb-3">Vos préférences</h5>
+        <form method="POST" action="{{ url_for('preferences') }}">
+          {{ form.hidden_tag() }}
+
+          <div class="mb-3">
+            <label class="form-label">{{ form.domaines_entites_tms.label }}</label>
+            {% for subfield in form.domaines_entites_tms %}
+              <div class="form-check">
+                {{ subfield(class="form-check-input") }}
+                <label class="form-check-label">{{ subfield.label.text }}</label>
+              </div>
+            {% endfor %}
+          </div>
+
+          <div class="d-grid">
+            {{ form.submit(class="btn btn-primary") }}
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tableau des statistiques -->
+    <div class="col-md-8">
+      <h4 class="mb-3">Statistiques par domaine</h4>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover align-middle text-center">
+          <thead>
+            <tr>
+              <th class="text-white bg-dark">Domaines</th>
+              <th class="bg-success">Alignés</th>
+              <th class="bg-danger">Non alignés</th>
+              <th class="bg-warning">A traiter</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% set domaines = {} %}
+            {% for row in stats_domaines %}
+              {% set domaine = row.type_dossier %}
+              {% set statut = row.statut_libelle %}
+              {% set count = row.nb_tms_id %}
+
+              {% if domaine not in domaines %}
+                {% set _ = domaines.update({domaine: {'Aligné': 0, 'Non aligné': 0, 'A traiter': 0}}) %}
+              {% endif %}
+
+              {% set _ = domaines[domaine].update({statut: count}) %}
+            {% endfor %}
+
+            {% for domaine, stats in domaines.items() %}
+              <tr>
+                <td class="fw-bold">{{ domaine }}</td>
+                <td>{{ stats['Aligné'] }}</td>
+                <td>{{ stats['Non aligné'] }}</td>
+                <td>{{ stats['A traiter'] }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

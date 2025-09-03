@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <!-- Inclusion des éléments nécessaires pour le head -->
+    {% include '/partials/head.html' %}
+
+    <body class="d-flex flex-column min-vh-100" style="padding-bottom: 80px;">
+        <!-- Inclusion de la navbar -->
+        {% include '/partials/navbar.html' %}
+
+        <!-- Bloc du contenu des pages -->
+        <main class="flex-grow-1 mt-3">
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <!-- Script de déconnexion automatique pour toutes les pages -->
+        {% include '/partials/script_deconnexion_auto.html' %}
+    </body>
+
+    <!-- Inclusion du footer -->
+    {% include '/partials/footer.html' %}
+</html>
