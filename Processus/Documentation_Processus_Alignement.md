@@ -123,7 +123,7 @@ WITH DomaineCTE AS (
 ```
 >Autres options : 
 >- Rajouter une possibilité pour exclure des ID TMS à partir d'une liste d'ID exclus (permettrait d'éviter de traiter les entités déjà présentes dans l'application)
->- Possibilité de sélectionner les données directement dans la table extraite du A sur le serveur B, schema `main`, table `tms-constituent_constituent-description` au lieu de passer par la requête complète mais du coup traitement des données différent à prévoir dans OpenRefine.
+>- Possibilité de sélectionner les données directement dans la table extraite du serveur A sur le serveur B, schema `main`, table `tms-constituent_constituent-description` au lieu de passer par la requête complète mais du coup traitement des données différent à prévoir dans OpenRefine.
 
 ---
 #### b. Le nombre de liens à la création par entité TMS
@@ -767,11 +767,11 @@ Création des tables "vides" : utilisateurs et historique (voir les tables en *i
   
 ## V. Import de nouvelles entités TMS dans la base de 2AMO
 
-  Pour importer de nouvelles entités TMS dans la base de l'application, il faudra reproduire les étapes d'extraction des données du A, du projet OpenRefine, de la récupération des données des candidats, de l'exclusion des candidats par écarts de dates, du calcul des scores_flag_* et intégrer les données dans les tables correspondantes.
+  Pour importer de nouvelles entités TMS dans la base de l'application, il faudra reproduire les étapes d'extraction des données du serveur A, du projet OpenRefine, de la récupération des données des candidats, de l'exclusion des candidats par écarts de dates, du calcul des scores_flag_* et intégrer les données dans les tables correspondantes.
 
 ## LISTE DES SCRIPTS ET DOCUMENTS CITES
 ### Scripts
-1. Script de sélection d'entités TMS au hasard et génération de la requête SQL pour extraction des données du A ([script](./Scripts/sample_maker_v2.py)) ([en savoir plus](#1-extraction-des-données-depuis-le-serveur-a-avec-des-requêtes-sql))
+1. Script de sélection d'entités TMS au hasard et génération de la requête SQL pour extraction des données du serveur A ([script](./Scripts/sample_maker_v2.py)) ([en savoir plus](#1-extraction-des-données-depuis-le-serveur-a-avec-des-requêtes-sql))
 2. Script de récupération des lignes avec erreurs à partir de l'export csv OpenRefine ([script](./Scripts/recup_batch_error.py)) ([en savoir plus](./Scripts/recup_batch_error.py))
 3. Script de fusion des différents exports Openrefine sans erreur ([script](./Scripts/fusion_batch_error_et_premier_batch.py)) ([en savoir plus](#2-projet-openrefine))
 4. Script de téléchargement des données des candidats ([script](./Scripts/recuperation_json_asynchrone_candidats.py)) ([en savoir plus](#a-récuperation-des-données-wikidata-pour-chaque-candidat))
@@ -795,4 +795,5 @@ Création des tables "vides" : utilisateurs et historique (voir les tables en *i
 9. Exemple de script SQL pour la mise à jour des `statut_validation` après edition des entites wikdiata alignees ([voir document](./script_sql_statut_publie_20250731_110138.sql)) ([en savoir plus](#1-personnes-et-institutions-alignées-et-publiées-sur-le-répertoire-des-artistes-et-personnalités))
 
 10. Page d'aide FR de Quickstatements ([voir le document](https://www.wikidata.org/wiki/Help:QuickStatements/fr))
+
 
